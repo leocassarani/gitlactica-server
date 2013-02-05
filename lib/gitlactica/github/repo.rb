@@ -22,7 +22,8 @@ module Gitlactica
       def to_hash
         {
           id: id,
-          name: name
+          name: name,
+          description: description
         }
       end
     end
