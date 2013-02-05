@@ -1,8 +1,12 @@
 require 'eventmachine'
+require 'em-http-request'
 require 'em-websocket-client'
+require 'sinatra'
+require 'thin'
 require 'yajl'
 
 require './lib/gitlactica'
+require './spec/fixtures/fake_github_api'
 
 describe "Gitlactica" do
   def to_json(hash)
@@ -20,8 +24,15 @@ describe "Gitlactica" do
     end
   end
 
+  def mock_github_api(host, port)
+    Thin::Logging.silent = true
+    Thin::Server.start(FakeGitHubApi, host, port)
+  end
+
   it "given a GitHub username over WebSocket, fetches the user's repos and sends them back" do
     EM.run {
+      mock_github_api('localhost', 3333)
+
       Gitlactica::Application.run
 
       conn = EM::WebSocketClient.connect("ws://localhost:8080")

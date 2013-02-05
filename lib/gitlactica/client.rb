@@ -7,19 +7,10 @@ module Gitlactica
     def process(msg)
       if @username.nil?
         @username = msg.fetch(:username)
-        send_msg(
-          username: "defunkt",
-          repos: [
-            {
-              id: 1861402,
-              name: "ace"
-            },
-            {
-              id: 36,
-              name: "ambition"
-            }
-          ]
-        )
+
+        fetch_repos do |response|
+          send_msg(response)
+        end
       end
     end
 
@@ -28,6 +19,16 @@ module Gitlactica
     def send_msg(msg)
       json = Yajl::Encoder.encode(msg)
       @socket.send(json)
+    end
+
+    def fetch_repos(&block)
+      http = EM::HttpRequest.new('http://localhost:3333').get(:path => "users/#{@username}/repos")
+
+      http.callback do
+        json = http.response
+        msg = Yajl::Parser.parse(json)
+        block.call(msg)
+      end
     end
   end
 end

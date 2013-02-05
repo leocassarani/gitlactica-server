@@ -1,4 +1,5 @@
 require 'eventmachine'
+require 'em-http-request'
 require 'em-websocket'
 require 'yajl'
 
