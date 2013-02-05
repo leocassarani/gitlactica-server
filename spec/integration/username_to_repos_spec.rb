@@ -35,10 +35,10 @@ describe "Gitlactica" do
 
       mock_github_api('localhost', 3333)
 
-      conn = EM::WebSocketClient.connect("ws://localhost:8080")
+      websocket = EM::WebSocketClient.connect("ws://localhost:8080")
 
-      conn.callback do
-        conn.send_msg(
+      websocket.callback do
+        websocket.send_msg(
           to_json(
             event: "username",
             data: {
@@ -48,7 +48,7 @@ describe "Gitlactica" do
         )
       end
 
-      conn.stream do |json|
+      websocket.stream do |json|
         EM.stop_event_loop
 
         from_json(json).should == {
@@ -65,7 +65,7 @@ describe "Gitlactica" do
       end
 
       fail_after(0.1, "No message received") do
-        conn.close_connection
+        websocket.close_connection
       end
     }
   end
