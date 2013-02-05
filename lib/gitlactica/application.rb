@@ -31,7 +31,7 @@ module Gitlactica
       msg = Message.new(json)
       client.process(msg)
     rescue Message::InvalidJSONError, Client::InvalidMessageError
-      puts "Invalid message received: #{msg}"
+      puts "Invalid message received: #{json}"
     end
   end
 end

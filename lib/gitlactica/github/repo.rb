@@ -4,6 +4,10 @@ module Gitlactica
       def self.all_by_user(user, &block)
         http = EM::HttpRequest.new('http://localhost:3333').get(path: "users/#{user.username}/repos")
 
+        http.errback do
+          puts "Request failed: #{http.error}"
+        end
+
         http.callback do
           json = Yajl::Parser.parse(http.response)
           repos = json.map { |hash| GitHub::RepoMapper.from_api(hash, self) }
