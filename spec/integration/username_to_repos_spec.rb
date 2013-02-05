@@ -47,14 +47,9 @@ describe "Gitlactica" do
         from_json(json).should == {
           username: "defunkt",
           repos: [
-            {
-              id: 1861402,
-              name: "ace"
-            },
-            {
-              id: 36,
-              name: "ambition"
-            }
+            { id: 1861402, name: "ace" },
+            { id: 91988,   name: "defunkt.github.com" },
+            { id: 1167457, name: "evilbot" }
           ]
         }
       end

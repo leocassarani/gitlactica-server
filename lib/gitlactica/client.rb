@@ -15,8 +15,11 @@ module Gitlactica
     def process_username(msg)
       username = msg.fetch(:username)
       @user = GitHub::User.new(username)
-      @user.fetch_repos do |response|
-        send_msg(response)
+      user.repos do |repos|
+        send_msg(
+          username: user.username,
+          repos: repos.map(&:to_hash)
+        )
       end
     end
 

@@ -7,13 +7,8 @@ module Gitlactica
         @username = username
       end
 
-      def fetch_repos(&block)
-        http = EM::HttpRequest.new('http://localhost:3333').get(path: "users/#{username}/repos")
-
-        http.callback do
-          msg = Yajl::Parser.parse(http.response)
-          block.call(msg)
-        end
+      def repos(&block)
+        GitHub::Repo.all_by_user(self, &block)
       end
     end
   end

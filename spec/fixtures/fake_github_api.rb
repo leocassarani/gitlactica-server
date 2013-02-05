@@ -1,24 +1,15 @@
 class FakeGitHubApi < Sinatra::Base
+  GITHUB_API_DIR = File.join(File.dirname(__FILE__), 'github_api')
+
   get '/users/:user/repos' do
     content_type :json
-    to_json(
-      username: params[:user],
-      repos: [
-        {
-          id: 1861402,
-          name: "ace"
-        },
-        {
-          id: 36,
-          name: "ambition"
-        }
-      ]
-    )
+    respond_with_fixture('repos.json')
   end
 
   private
 
-  def to_json(obj)
-    Yajl::Encoder.encode(obj)
+  def respond_with_fixture(filename)
+    path = File.join(GITHUB_API_DIR, filename)
+    File.read(path)
   end
 end
