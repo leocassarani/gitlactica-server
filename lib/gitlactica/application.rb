@@ -11,19 +11,27 @@ module Gitlactica
     def run
       EM::WebSocket.start(host: 'localhost', port: 8080) do |ws|
         client = Client.new(ws)
-
-        ws.onopen  { @clients << client }
-
-        ws.onmessage do |json|
-          msg = Yajl::Parser.parse(json, symbolize_keys: true)
-          client.process(msg)
-        end
-
-        ws.onclose do
-          @clients.delete(client)
-          client = nil
-        end
+        ws.onopen  { client_add(client) }
+        ws.onclose { client_remove(client) }
+        ws.onmessage { |msg| client_msg(client, msg) }
       end
+    end
+
+    private
+
+    def client_add(client)
+      @clients << client
+    end
+
+    def client_remove(client)
+      @clients.delete(client)
+    end
+
+    def client_msg(client, json)
+      msg = Message.new(json)
+      client.process(msg)
+    rescue Message::InvalidJSONError, Client::InvalidMessageError
+      puts "Invalid message received: #{msg}"
     end
   end
 end
