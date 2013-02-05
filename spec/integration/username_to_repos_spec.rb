@@ -31,9 +31,9 @@ describe "Gitlactica" do
 
   it "given a GitHub username over WebSocket, fetches the user's repos and sends them back" do
     EM.run {
-      mock_github_api('localhost', 3333)
-
       Gitlactica::Application.run
+
+      mock_github_api('localhost', 3333)
 
       conn = EM::WebSocketClient.connect("ws://localhost:8080")
 

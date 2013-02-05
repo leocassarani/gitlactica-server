@@ -5,6 +5,7 @@ require 'yajl'
 
 require_relative 'gitlactica/application'
 require_relative 'gitlactica/client'
+require_relative 'gitlactica/github'
 
 module Gitlactica
 
