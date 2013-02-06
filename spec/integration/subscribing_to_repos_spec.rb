@@ -6,9 +6,9 @@ describe "Gitlactica" do
   include JSONHelper
 
   it "given a list of repos to subscribe to, fetches them from GitHub then sends back all recent unique committers" do
-    EM.run {
-      pending
+    pending "Not implemented yet"
 
+    EM.run {
       Gitlactica::Application.run
 
       mock_github_api('localhost', 3333)
@@ -32,6 +32,7 @@ describe "Gitlactica" do
         from_json(json).should == {
           event: "committers",
           data: {
+            repo: "garybernhardt/raptor",
             committers: [
               { login: "garybernhardt" },
               { login: "tmiller" },
