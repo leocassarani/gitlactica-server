@@ -15,18 +15,18 @@ module Gitlactica
         end
       end
 
-      attr_reader :id, :name, :description
+      attr_reader :name, :full_name, :description
 
       def initialize(attr = {})
-        @id = attr.fetch(:id)
-        @name = attr.fetch(:name)
+        @name        = attr.fetch(:name)
+        @full_name   = attr.fetch(:full_name)
         @description = attr.fetch(:description)
       end
 
       def to_hash
         {
-          id: id,
           name: name,
+          full_name: full_name,
           description: description
         }
       end

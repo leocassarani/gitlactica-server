@@ -32,15 +32,15 @@ describe "Gitlactica" do
           data: {
             username: "defunkt",
             repos: [
-              { id: 1861402, name: "ace", description: "Ajax.org Cloud9 Editor" },
-              { id: 91988,   name: "defunkt.github.com", description: "My GitHub Page" },
-              { id: 1167457, name: "evilbot", description: "an evil bot that's definitely not for convore" }
+              { name: "ace", full_name: "defunkt/ace", description: "Ajax.org Cloud9 Editor" },
+              { name: "defunkt.github.com", full_name: "defunkt/defunkt.github.com", description: "My GitHub Page" },
+              { name: "evilbot", full_name: "defunkt/evilbot", description: "an evil bot that's definitely not for convore" }
             ]
           }
         }
       end
 
-      fail_after(0.1, "No message received") do
+      fail_after(0.3, "No message received") do
         websocket.close_connection
       end
     }
