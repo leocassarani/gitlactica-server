@@ -5,7 +5,7 @@ describe "Gitlactica" do
   include GitHubApiHelper
   include JSONHelper
 
-  it "given a GitHub username over WebSocket, fetches the user's repos and sends them back" do
+  it "given a GitHub login over WebSocket, fetches the user's repos and sends them back" do
     EM.run {
       Gitlactica::Application.run
 
@@ -16,9 +16,9 @@ describe "Gitlactica" do
       websocket.callback do
         websocket.send_msg(
           to_json(
-            event: "username",
+            event: "login",
             data: {
-              username: "defunkt"
+              login: "defunkt"
             }
           )
         )
@@ -30,7 +30,7 @@ describe "Gitlactica" do
         from_json(json).should == {
           event: "repos",
           data: {
-            username: "defunkt",
+            login: "defunkt",
             repos: [
               { name: "ace", full_name: "defunkt/ace", description: "Ajax.org Cloud9 Editor" },
               { name: "defunkt.github.com", full_name: "defunkt/defunkt.github.com", description: "My GitHub Page" },

@@ -2,7 +2,7 @@ module Gitlactica
   module GitHub
     class Repo
       def self.all_by_user(user, &block)
-        http = EM::HttpRequest.new('http://localhost:3333').get(path: "users/#{user.username}/repos")
+        http = EM::HttpRequest.new('http://localhost:3333').get(path: "users/#{user.login}/repos")
 
         http.errback do
           puts "Request failed: #{http.error}"
@@ -15,12 +15,20 @@ module Gitlactica
         end
       end
 
-      attr_reader :name, :full_name, :description
+      attr_reader :full_name, :name, :description
 
       def initialize(attr = {})
-        @name        = attr.fetch(:name)
         @full_name   = attr.fetch(:full_name)
-        @description = attr.fetch(:description)
+        @name        = attr.fetch(:name, '')
+        @description = attr.fetch(:description, '')
+      end
+
+      def recent_committers(&block)
+        GitHub::Commit.recent_commits(self) do |commits|
+          users = commits.map(&:committer)
+          users.uniq! { |user| user.login }
+          block.call(users)
+        end
       end
 
       def to_hash

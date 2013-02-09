@@ -6,8 +6,6 @@ describe "Gitlactica" do
   include JSONHelper
 
   it "given a list of repos to subscribe to, fetches them from GitHub then sends back all recent unique committers" do
-    pending "Not implemented yet"
-
     EM.run {
       Gitlactica::Application.run
 
@@ -44,7 +42,7 @@ describe "Gitlactica" do
         }
       end
 
-      fail_after(0.1, "No message received")
+      fail_after(0.3, "No message received")
     }
   end
 end
