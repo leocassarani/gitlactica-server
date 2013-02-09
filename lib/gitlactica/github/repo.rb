@@ -10,16 +10,26 @@ module Gitlactica
 
         http.callback do
           json = Yajl::Parser.parse(http.response)
-          repos = json.map { |hash| GitHub::RepoMapper.from_api(hash, self) }
+          repos = json.map { |hash| from_api(hash) }
           block.call(repos)
         end
       end
 
-      attr_reader :full_name, :name, :description
+      def self.from_api(json)
+        new(
+          name: json.fetch('name'),
+          full_name: json.fetch('full_name'),
+          language: json.fetch('language', nil),
+          description: json.fetch('description', ''),
+        )
+      end
+
+      attr_reader :full_name, :name, :language, :description
 
       def initialize(attr = {})
         @full_name   = attr.fetch(:full_name)
         @name        = attr.fetch(:name, '')
+        @language    = attr.fetch(:language, nil)
         @description = attr.fetch(:description, '')
       end
 
@@ -35,6 +45,7 @@ module Gitlactica
         {
           name: name,
           full_name: full_name,
+          language: language,
           description: description
         }
       end

@@ -32,9 +32,21 @@ describe "Gitlactica" do
           data: {
             login: "defunkt",
             repos: [
-              { name: "ace", full_name: "defunkt/ace", description: "Ajax.org Cloud9 Editor" },
-              { name: "defunkt.github.com", full_name: "defunkt/defunkt.github.com", description: "My GitHub Page" },
-              { name: "evilbot", full_name: "defunkt/evilbot", description: "an evil bot that's definitely not for convore" }
+              {
+                name: "ace", full_name: "defunkt/ace",
+                language: "JavaScript",
+                description: "Ajax.org Cloud9 Editor"
+              },
+              {
+                name: "defunkt.github.com", full_name: "defunkt/defunkt.github.com",
+                language: nil,
+                description: "My GitHub Page"
+              },
+              {
+                name: "evilbot", full_name: "defunkt/evilbot",
+                language: "CoffeeScript",
+                description: "an evil bot that's definitely not for convore"
+              }
             ]
           }
         }
