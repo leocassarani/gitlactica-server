@@ -26,7 +26,7 @@ module Gitlactica
       user.repos do |repos|
         send_event(:repos, {
           login: user.login,
-          repos: repos.map(&:to_hash)
+          repos: repos.map(&:to_h)
         })
       end
     end

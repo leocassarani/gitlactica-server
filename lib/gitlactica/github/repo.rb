@@ -30,7 +30,7 @@ module Gitlactica
         GitHub::Commit.recent_commits(self, &block)
       end
 
-      def to_hash
+      def to_h
         {
           name: name,
           full_name: full_name,
