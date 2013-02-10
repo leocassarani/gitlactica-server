@@ -2,15 +2,8 @@ module Gitlactica
   module GitHub
     class Commit
       def self.recent_commits(repo, &block)
-        http = EM::HttpRequest.new('http://localhost:3333').get(path: "repos/#{repo.full_name}/commits")
-
-        http.errback do
-          puts "Request failed: #{http.error}"
-        end
-
-        http.callback do
-          ary = Yajl::Parser.parse(http.response)
-          commits = ary.map { |json| from_api(json) }
+        GitHub::Client.get_json("repos/#{repo.full_name}/commits") do |json|
+          commits = json.map { |commit| from_api(commit) }
           block.call(commits)
         end
       end

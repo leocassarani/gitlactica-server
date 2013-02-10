@@ -2,14 +2,7 @@ module Gitlactica
   module GitHub
     class Repo
       def self.all_by_user(user, &block)
-        http = EM::HttpRequest.new('http://localhost:3333').get(path: "users/#{user.login}/repos")
-
-        http.errback do
-          puts "Request failed: #{http.error}"
-        end
-
-        http.callback do
-          json = Yajl::Parser.parse(http.response)
+        GitHub::Client.get_json("users/#{user.login}/repos") do |json|
           repos = json.map { |hash| from_api(hash) }
           block.call(repos)
         end
