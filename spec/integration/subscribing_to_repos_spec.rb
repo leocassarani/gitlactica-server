@@ -32,11 +32,11 @@ describe "Gitlactica" do
           data: {
             repo: "garybernhardt/raptor",
             committers: [
-              { login: "garybernhardt" },
-              { login: "tmiller" },
-              { login: "tcrayford" },
-              { login: "dpick" },
-              { login: "andrewhr" }
+              { login: "garybernhardt", last_commit: "2012-09-23T17:50:51Z" },
+              { login: "tmiller", last_commit: "2012-09-20T04:27:46Z" },
+              { login: "tcrayford", last_commit: "2012-06-09T12:57:38Z" },
+              { login: "dpick", last_commit: "2012-03-18T22:02:36Z" },
+              { login: "andrewhr", last_commit: "2012-03-17T00:47:32Z" }
             ]
           }
         }

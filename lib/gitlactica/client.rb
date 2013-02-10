@@ -33,15 +33,18 @@ module Gitlactica
 
     def process_subscriptions(msg)
       repos = msg.fetch(:repos, [])
-      repos.each { |name| process_subscription(name) }
+      repos.each do |name|
+        repo = GitHub::Repo.new(full_name: name)
+        process_subscription(repo)
+      end
     end
 
-    def process_subscription(repo_name)
-      repo = GitHub::Repo.new(full_name: repo_name)
-      repo.recent_committers do |committers|
+    def process_subscription(repo)
+      subscription = Subscription.new(repo)
+      subscription.committers do |committers|
         send_event(:committers, {
           repo: repo.full_name,
-          committers: committers.map(&:to_hash)
+          committers: committers
         })
       end
     end

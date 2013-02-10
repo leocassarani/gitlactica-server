@@ -26,12 +26,8 @@ module Gitlactica
         @description = attr.fetch(:description, '')
       end
 
-      def recent_committers(&block)
-        GitHub::Commit.recent_commits(self) do |commits|
-          users = commits.map(&:committer)
-          users.uniq! { |user| user.login }
-          block.call(users)
-        end
+      def recent_commits(&block)
+        GitHub::Commit.recent_commits(self, &block)
       end
 
       def to_hash

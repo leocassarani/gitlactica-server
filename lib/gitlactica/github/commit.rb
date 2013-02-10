@@ -9,15 +9,19 @@ module Gitlactica
       end
 
       def self.from_api(json)
-        user = json.fetch('committer')
-        committer = GitHub::User.from_api(user)
-        new(committer: committer)
+        committer = json.fetch('committer')
+        commit = json.fetch('commit')
+        new(
+          committer: GitHub::User.from_api(committer),
+          date: commit.fetch('committer', {}).fetch('date')
+        )
       end
 
-      attr_reader :committer
+      attr_reader :committer, :date
 
       def initialize(attr = {})
         @committer = attr.fetch(:committer)
+        @date      = attr.fetch(:date)
       end
     end
   end

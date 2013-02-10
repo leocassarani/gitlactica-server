@@ -1,13 +1,19 @@
 require './lib/gitlactica/github/user'
 
-describe Gitlactica::GitHub::User do
-  let(:json) { {
-    'type'  => "User",
-    'login' => "garybernhardt"
-  } }
+module Gitlactica::GitHub
+  describe Gitlactica::GitHub::User do
+    let(:json) { {
+      'type'  => "User",
+      'login' => "garybernhardt"
+    } }
 
-  let(:user) { Gitlactica::GitHub::User.from_api(json) }
-  subject { user }
+    let(:user) { User.from_api(json) }
+    subject { user }
 
-  its(:login) { should == "garybernhardt" }
+    its(:login) { should == "garybernhardt" }
+
+    it "is equal to users with the same login" do
+      User.new("tcrayford").should == User.new("tcrayford")
+    end
+  end
 end

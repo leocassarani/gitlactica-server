@@ -4,8 +4,10 @@ require 'em-websocket'
 require 'yajl'
 
 require_relative 'gitlactica/client'
-require_relative 'gitlactica/message'
 require_relative 'gitlactica/github'
+require_relative 'gitlactica/message'
+require_relative 'gitlactica/subscription'
+require_relative 'gitlactica/recent_committers'
 
 module Gitlactica
   class Application

@@ -16,10 +16,14 @@ module Gitlactica
         GitHub::Repo.all_by_user(self, &block)
       end
 
-      def to_hash
-        {
-          login: login
-        }
+      def ==(obj)
+        obj.is_a?(self.class) && obj.login == login
+      end
+
+      alias :eql? :==
+
+      def hash
+        login.hash
       end
     end
   end
