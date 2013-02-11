@@ -42,7 +42,9 @@ describe "Gitlactica" do
         }
       end
 
-      fail_after(0.3, "No message received")
+      fail_after(0.3, "No message received") do
+        websocket.close_connection
+      end
     }
   end
 end
