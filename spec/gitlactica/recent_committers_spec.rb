@@ -1,3 +1,4 @@
+require './lib/gitlactica/github/user'
 require './lib/gitlactica/recent_committers'
 
 module Gitlactica
@@ -6,8 +7,8 @@ module Gitlactica
       mock(committer: user, date: date)
     end
 
-    let(:tom)  { mock(:tom, login: "tcrayford") }
-    let(:gary) { mock(:gary, login: "garybernhardt") }
+    let(:tom)  { GitHub::User.new("tcrayford") }
+    let(:gary) { GitHub::User.new("garybernhardt") }
 
     it "returns all recent committers" do
       one = commit(tom, "2013-02-03T15:46:17Z")
