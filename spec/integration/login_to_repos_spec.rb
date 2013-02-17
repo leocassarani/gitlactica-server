@@ -1,33 +1,17 @@
 require_relative 'integration_helper'
 
 describe "Gitlactica" do
-  include EventMachineHelper
   include GitHubApiHelper
-  include JSONHelper
+  include WebSocketHelper
 
   it "given a GitHub login over WebSocket, fetches the user's repos and sends them back" do
     EM.run {
-      Gitlactica::Application.run
-
       mock_github_api('localhost', 3333)
 
-      websocket = EM::WebSocketClient.connect("ws://localhost:8080")
+      Gitlactica::Application.run
 
-      websocket.callback do
-        websocket.send_msg(
-          to_json(
-            event: "login",
-            data: {
-              login: "defunkt"
-            }
-          )
-        )
-      end
-
-      websocket.stream do |json|
-        EM.stop_event_loop
-
-        from_json(json).should == {
+      mock_websocket('localhost', 8080) do |websocket|
+        websocket.should_receive_msg(
           event: "repos",
           data: {
             login: "defunkt",
@@ -49,11 +33,16 @@ describe "Gitlactica" do
               }
             ]
           }
-        }
-      end
+        )
 
-      fail_after(0.3, "No message received") do
-        websocket.close_connection
+        websocket.send_msg(
+          event: "login",
+          data: {
+            login: "defunkt"
+          }
+        )
+
+        websocket.timeout_after(0.3)
       end
     }
   end
