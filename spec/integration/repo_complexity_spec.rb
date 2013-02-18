@@ -15,7 +15,7 @@ describe "Gitlactica" do
           event: "complexity",
           data: {
             repo: "garybernhardt/raptor",
-            complexity: 967
+            complexity: 1516
           }
         )
 

@@ -17,6 +17,22 @@ module Gitlactica
         @size = attr.fetch(:size, 0)
       end
 
+      def extension
+        if hidden? || !filename.include?('.')
+          ''
+        else
+          filename.split('.').last
+        end
+      end
+
+      def hidden?
+        filename =~ /^\./
+      end
+
+      def filename
+        path.split('/').last
+      end
+
       def ==(obj)
         obj.is_a?(self.class) && obj.sha == sha
       end
