@@ -1,8 +1,8 @@
 module Gitlactica
   module GitHub
     module Client
-      def self.get_json(path, &block)
-        http = api_request.get(path: path)
+      def self.get_json(path, query = {}, &block)
+        http = api_request.get(path: path, query: query)
         http.errback { puts "Request failed: #{http.error}" }
         http.callback do
           json = Yajl::Parser.parse(http.response)

@@ -41,12 +41,14 @@ module Gitlactica
 
     def process_subscription(repo)
       subscription = Subscription.new(repo)
+
       subscription.committers do |committers|
         send_event(:committers, {
           repo: repo.full_name,
           committers: committers
         })
       end
+
       subscription.complexity do |complexity|
         send_event(:complexity, {
           repo: repo.full_name,

@@ -2,8 +2,9 @@ module Gitlactica
   module GitHub
     Tree = Struct.new(:blobs) do
       def self.for_repo(repo, branch, &block)
-        url = "repos/#{repo.full_name}/git/trees/#{branch}?recursive=1"
-        GitHub::Client.get_json(url) do |json|
+        url = "repos/#{repo.full_name}/git/trees/#{branch}"
+
+        GitHub::Client.get_json(url, recursive: 1) do |json|
           tree = from_api(json)
           block.call(tree)
         end
