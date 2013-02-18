@@ -1,3 +1,4 @@
+require_relative 'github/blob'
 require_relative 'github/client'
 require_relative 'github/commit'
 require_relative 'github/repo'
