@@ -12,5 +12,14 @@ module Gitlactica
         block.call(committers)
       end
     end
+
+    def complexity(&block)
+      repo.tree do |tree|
+        EM.defer do
+          complexity = RepoComplexity.for_tree(tree)
+          block.call(complexity)
+        end
+      end
+    end
   end
 end

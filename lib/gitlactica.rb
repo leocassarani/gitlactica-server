@@ -9,6 +9,7 @@ require_relative 'gitlactica/github'
 require_relative 'gitlactica/message'
 require_relative 'gitlactica/subscription'
 require_relative 'gitlactica/recent_committers'
+require_relative 'gitlactica/repo_complexity'
 
 module Gitlactica
   class Application

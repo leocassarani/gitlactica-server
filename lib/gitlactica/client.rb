@@ -47,6 +47,12 @@ module Gitlactica
           committers: committers
         })
       end
+      subscription.complexity do |complexity|
+        send_event(:complexity, {
+          repo: repo.full_name,
+          complexity: complexity
+        })
+      end
     end
 
     def send_event(event, data)

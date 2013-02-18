@@ -11,6 +11,12 @@ class FakeGitHubApi < Sinatra::Base
     respond_with_fixture('raptor_commits.json')
   end
 
+  get '/repos/garybernhardt/raptor/git/trees/master' do
+    pass unless params.has_key?('recursive')
+    content_type :json
+    respond_with_fixture('raptor_tree.json')
+  end
+
   private
 
   def respond_with_fixture(filename)

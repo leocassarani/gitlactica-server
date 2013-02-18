@@ -30,6 +30,11 @@ module Gitlactica
         GitHub::Commit.recent_commits(self, &block)
       end
 
+      def tree(&block)
+        # TODO: use a repo's default branch, which may not be "master"
+        GitHub::Tree.for_repo(self, 'master', &block)
+      end
+
       def to_h
         {
           name: name,
