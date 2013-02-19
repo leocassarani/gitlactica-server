@@ -13,11 +13,13 @@ module Gitlactica
       private
 
       def self.head
+        head = { 'User-Agent' => Config::USER_AGENT }
+
         if GitHub::Auth.authenticatable?
-          { authorization: [GitHub::Auth.username, GitHub::Auth.password] }
-        else
-          {}
+          head['Authorization'] = [GitHub::Auth.username, GitHub::Auth.password]
         end
+
+        head
       end
 
       def self.api_request
