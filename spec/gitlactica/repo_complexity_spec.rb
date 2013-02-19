@@ -1,3 +1,4 @@
+require './lib/gitlactica/language'
 require './lib/gitlactica/github/blob'
 require './lib/gitlactica/repo_complexity'
 

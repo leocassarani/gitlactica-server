@@ -1,7 +1,5 @@
 module Gitlactica
   module RepoComplexity
-    KNOWN_EXTENSIONS = %w(.c .cc .cpp .cxx .h .hs .java .js .m .php .pl .py .rb)
-
     def self.for_tree(tree)
       blobs = tree.blobs.select { |blob| interesting_blob?(blob) }
       count = blobs.count
@@ -17,7 +15,7 @@ module Gitlactica
     private
 
     def self.interesting_blob?(blob)
-      KNOWN_EXTENSIONS.include?(blob.extension)
+      Language.for_extension(blob.extension).programming?
     end
   end
 end
