@@ -18,16 +18,7 @@ module Gitlactica
       private
 
       def details
-        @details ||= begin
-          file_path = Config.file_path('auth.yml')
-
-          if File.exists?(file_path)
-            yml = YAML.load_file(file_path)
-            yml.fetch('github', {})
-          else
-            {}
-          end
-        end
+        @details ||= Config.auth.fetch('github', {})
       end
     end
   end
