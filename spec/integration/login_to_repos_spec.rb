@@ -17,17 +17,20 @@ describe "Gitlactica" do
             login: "defunkt",
             repos: [
               {
-                name: "ace", full_name: "defunkt/ace",
+                name: "ace",
+                full_name: "defunkt/ace",
                 language: "JavaScript",
                 description: "Ajax.org Cloud9 Editor"
               },
               {
-                name: "defunkt.github.com", full_name: "defunkt/defunkt.github.com",
+                name: "defunkt.github.com",
+                full_name: "defunkt/defunkt.github.com",
                 language: nil,
                 description: "My GitHub Page"
               },
               {
-                name: "evilbot", full_name: "defunkt/evilbot",
+                name: "evilbot",
+                full_name: "defunkt/evilbot",
                 language: "CoffeeScript",
                 description: "an evil bot that's definitely not for convore"
               }
