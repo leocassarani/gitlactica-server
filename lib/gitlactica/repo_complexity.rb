@@ -1,6 +1,6 @@
 module Gitlactica
   module RepoComplexity
-    KNOWN_EXTENSIONS = %w(js rb)
+    KNOWN_EXTENSIONS = %w(c cc cpp cxx h hs java js m php pl py rb)
 
     def self.for_tree(tree)
       blobs = tree.blobs.select { |blob| interesting_blob?(blob) }
