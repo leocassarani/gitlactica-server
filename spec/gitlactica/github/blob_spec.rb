@@ -29,11 +29,11 @@ module Gitlactica::GitHub
       end
 
       it "returns the file extension when there is one" do
-        blob('lib/raptor.rb').extension.should == 'rb'
+        blob('lib/raptor.rb').extension.should == '.rb'
       end
 
       it "only returns the last component of a multi-part extension" do
-        blob('index.html.erb').extension.should == 'erb'
+        blob('index.html.erb').extension.should == '.erb'
       end
 
       it "returns an empty string for extensionless filenames" do

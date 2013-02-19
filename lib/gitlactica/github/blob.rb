@@ -18,19 +18,7 @@ module Gitlactica
       end
 
       def extension
-        if hidden? || !filename.include?('.')
-          ''
-        else
-          filename.split('.').last
-        end
-      end
-
-      def hidden?
-        filename =~ /^\./
-      end
-
-      def filename
-        path.split('/').last
+        File.extname(path)
       end
 
       def ==(obj)
