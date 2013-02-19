@@ -25,8 +25,6 @@ module Gitlactica
         obj.is_a?(self.class) && obj.sha == sha
       end
 
-      alias :eql? :==
-
       def hash
         sha.hash
       end

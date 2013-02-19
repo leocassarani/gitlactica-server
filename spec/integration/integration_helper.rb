@@ -1,11 +1,9 @@
 ENV['GITHUB_API_URL'] = 'http://localhost:3333'
 
 require 'eventmachine'
-require 'em-http-request'
 require 'em-websocket-client'
 require 'sinatra'
 require 'thin'
-require 'yajl'
 
 require './lib/gitlactica'
 

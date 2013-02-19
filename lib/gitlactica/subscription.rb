@@ -8,15 +8,19 @@ module Gitlactica
 
     def committers(&block)
       repo.recent_commits do |commits|
-        committers = RecentCommitters.for_commits(commits)
-        block.call(committers)
+        EM.defer do
+          committers = RecentCommitters.for_commits(commits)
+          EM.next_tick { block.call(committers) }
+        end
       end
     end
 
     def complexity(&block)
       repo.tree do |tree|
-        complexity = RepoComplexity.for_tree(tree)
-        block.call(complexity)
+        EM.defer do
+          complexity = RepoComplexity.for_tree(tree)
+          EM.next_tick { block.call(complexity) }
+        end
       end
     end
   end

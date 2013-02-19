@@ -1,0 +1,1019 @@
+# Adapted from the linguist gem by GitHub.
+#
+# https://github.com/github/linguist
+#
+# Copyright (c) 2011 GitHub, Inc.
+#
+# type              - Either data, programming, markup, or nil
+# extension         - An Array of associated extensions
+# primary_extension - A String for the main extension associated with
+#                     the language. Must be unique. Used when a Language is picked
+#                     from a dropdown and we need to automatically choose an
+#                     extension.
+# color             - CSS hex color to represent the language.
+
+ASP:
+  type: programming
+  color: "#6a40fd"
+  primary_extension: .asp
+  extensions:
+  - .asax
+  - .ascx
+  - .ashx
+  - .asmx
+  - .aspx
+  - .axd
+
+ActionScript:
+  type: programming
+  color: "#e3491a"
+  primary_extension: .as
+
+Ada:
+  type: programming
+  color: "#02f88c"
+  primary_extension: .adb
+  extensions:
+  - .ads
+
+ApacheConf:
+  type: markup
+  primary_extension: .apacheconf
+
+Apex:
+  type: programming
+  primary_extension: .cls
+
+AppleScript:
+  type: programming
+  primary_extension: .applescript
+
+Arc:
+  type: programming
+  color: "#ca2afe"
+  primary_extension: .arc
+
+Arduino:
+  type: programming
+  color: "#bd79d1"
+  primary_extension: .ino
+
+Assembly:
+  type: programming
+  color: "#a67219"
+  primary_extension: .asm
+
+Augeas:
+  type: programming
+  primary_extension: .aug
+
+AutoHotkey:
+  type: programming
+  color: "#6594b9"
+  primary_extension: .ahk
+
+Batchfile:
+  type: programming
+  primary_extension: .bat
+  extensions:
+  - .cmd
+
+Befunge:
+  primary_extension: .befunge
+
+BlitzMax:
+  primary_extension: .bmx
+
+Boo:
+  type: programming
+  color: "#d4bec1"
+  primary_extension: .boo
+
+Brainfuck:
+  primary_extension: .b
+  extensions:
+  - .bf
+
+Bro:
+  type: programming
+  primary_extension: .bro
+
+C:
+  type: programming
+  color: "#555"
+  primary_extension: .c
+  extensions:
+  - .w
+
+C#:
+  type: programming
+  color: "#5a25a2"
+  primary_extension: .cs
+
+C++:
+  type: programming
+  color: "#f34b7d"
+  primary_extension: .cpp
+  extensions:
+  - .C
+  - .c++
+  - .cxx
+  - .H
+  - .h++
+  - .hh
+  - .hxx
+  - .tcc
+
+C-ObjDump:
+  type: data
+  primary_extension: .c-objdump
+
+C2hs Haskell:
+  type: programming
+  primary_extension: .chs
+
+CMake:
+  primary_extension: .cmake
+  extensions:
+  - .cmake.in
+
+CSS:
+  primary_extension: .css
+
+Ceylon:
+  type: programming
+  primary_extension: .ceylon
+
+ChucK:
+  primary_extension: .ck
+
+Clojure:
+  type: programming
+  color: "#db5855"
+  primary_extension: .clj
+  extensions:
+  - .cljs
+
+CoffeeScript:
+  type: programming
+  color: "#244776"
+  primary_extension: .coffee
+  extensions:
+  - ._coffee
+  - .cson
+
+ColdFusion:
+  type: programming
+  color: "#ed2cd6"
+  primary_extension: .cfm
+  extensions:
+  - .cfc
+
+Common Lisp:
+  type: programming
+  color: "#3fb68b"
+  primary_extension: .lisp
+  extensions:
+  - .asd
+  - .lsp
+  - .ny
+
+Coq:
+  type: programming
+  primary_extension: .coq
+
+Cpp-ObjDump:
+  type: data
+  primary_extension: .cppobjdump
+  extensions:
+  - .c++objdump
+  - .cxx-objdump
+
+Cucumber:
+  primary_extension: .feature
+
+Cython:
+  type: programming
+  primary_extension: .pyx
+  extensions:
+  - .pxd
+  - .pxi
+
+D:
+  type: programming
+  color: "#fcd46d"
+  primary_extension: .d
+  extensions:
+  - .di
+
+D-ObjDump:
+  type: data
+  primary_extension: .d-objdump
+
+Darcs Patch:
+  primary_extension: .darcspatch
+  extensions:
+  - .dpatch
+
+Dart:
+  type: programming
+  primary_extension: .dart
+
+Delphi:
+  type: programming
+  color: "#b0ce4e"
+  primary_extension: .pas
+  extensions:
+  - .lpr
+
+DCPU-16 ASM:
+  type: programming
+  primary_extension: .dasm16
+  extensions:
+  - .dasm
+
+Diff:
+  primary_extension: .diff
+
+Dylan:
+  type: programming
+  color: "#3ebc27"
+  primary_extension: .dylan
+
+Ecere Projects:
+  type: data
+  primary_extension: .epj
+
+Ecl:
+  type: programming
+  color: "#8a1267"
+  primary_extension: .ecl
+  extensions:
+  - .eclxml
+
+Eiffel:
+  type: programming
+  color: "#946d57"
+  primary_extension: .e
+
+Elixir:
+  type: programming
+  color: "#6e4a7e"
+  primary_extension: .ex
+  extensions:
+  - .exs
+
+Elm:
+  type: programming
+  primary_extension: .elm
+
+Emacs Lisp:
+  type: programming
+  color: "#c065db"
+  primary_extension: .el
+  extensions:
+  - .emacs
+
+Erlang:
+  type: programming
+  color: "#949e0e"
+  primary_extension: .erl
+  extensions:
+  - .hrl
+
+F#:
+  type: programming
+  color: "#b845fc"
+  primary_extension: .fs
+  extensions:
+  - .fsi
+  - .fsx
+
+FORTRAN:
+  type: programming
+  color: "#4d41b1"
+  primary_extension: .f90
+  extensions:
+  - .F
+  - .F03
+  - .F08
+  - .F77
+  - .F90
+  - .F95
+  - .FOR
+  - .FPP
+  - .f
+  - .f03
+  - .f08
+  - .f77
+  - .f95
+  - .for
+  - .fpp
+
+Factor:
+  type: programming
+  color: "#636746"
+  primary_extension: .factor
+
+Fancy:
+  type: programming
+  color: "#7b9db4"
+  primary_extension: .fy
+  extensions:
+  - .fancypack
+
+Fantom:
+  type: programming
+  color: "#dbded5"
+  primary_extension: .fan
+
+Forth:
+  type: programming
+  primary_extension: .fth
+  color: "#341708"
+  extensions:
+  - .4th
+  - .forth
+  - .fth
+
+GAS:
+  type: programming
+  primary_extension: .s
+  extensions:
+  - .S
+
+Genshi:
+  primary_extension: .kid
+
+Gentoo Ebuild:
+  primary_extension: .ebuild
+
+Gentoo Eclass:
+  primary_extension: .eclass
+
+Gettext Catalog:
+  searchable: false
+  primary_extension: .po
+  extensions:
+  - .pot
+
+Go:
+  type: programming
+  color: "#8d04eb"
+  primary_extension: .go
+
+Gosu:
+  type: programming
+  color: "#82937f"
+  primary_extension: .gs
+
+Groff:
+  primary_extension: .man
+  extensions:
+  - '.1'
+  - '.2'
+  - '.3'
+  - '.4'
+  - '.5'
+  - '.6'
+  - '.7'
+
+Groovy:
+  type: programming
+  color: "#e69f56"
+  primary_extension: .groovy
+
+Groovy Server Pages:
+  primary_extension: .gsp
+
+HTML:
+  type: markup
+  primary_extension: .html
+  extensions:
+  - .htm
+  - .xhtml
+
+HTML+Django:
+  type: markup
+  primary_extension: .mustache # TODO: This is incorrect
+  extensions:
+  - .mustache
+
+HTML+ERB:
+  type: markup
+  primary_extension: .erb
+  extensions:
+  - .html.erb
+
+HTML+PHP:
+  type: markup
+  primary_extension: .phtml
+
+HTTP:
+  type: data
+  primary_extension: .http
+
+Haml:
+  type: markup
+  primary_extension: .haml
+
+Handlebars:
+  type: markup
+  primary_extension: .handlebars
+
+Haskell:
+  type: programming
+  color: "#29b544"
+  primary_extension: .hs
+  extensions:
+  - .hsc
+
+Haxe:
+  type: programming
+  color: "#346d51"
+  primary_extension: .hx
+  extensions:
+  - .hxsl
+
+INI:
+  type: data
+  extensions:
+  - .cfg
+  - .ini
+  - .prefs
+  - .properties
+  primary_extension: .ini
+
+IRC log:
+  primary_extension: .irclog
+  extensions:
+  - .weechatlog
+
+Io:
+  type: programming
+  color: "#a9188d"
+  primary_extension: .io
+
+Ioke:
+  type: programming
+  color: "#078193"
+  primary_extension: .ik
+
+JSON:
+  type: data
+  searchable: false
+  primary_extension: .json
+
+Java:
+  type: programming
+  color: "#b07219"
+  primary_extension: .java
+  extensions:
+  - .pde
+
+Java Server Pages:
+  primary_extension: .jsp
+
+JavaScript:
+  type: programming
+  color: "#f15501"
+  primary_extension: .js
+  extensions:
+  - ._js
+  - .bones
+  - .jake
+  - .jsfl
+  - .jsm
+  - .jss
+  - .jsx
+  - .pac
+  - .sjs
+  - .ssjs
+
+Julia:
+  type: programming
+  primary_extension: .jl
+
+Kotlin:
+  type: programming
+  primary_extension: .kt
+  extensions:
+  - .ktm
+  - .kts
+
+LLVM:
+  primary_extension: .ll
+
+Lasso:
+  type: programming
+  color: "#2584c3"
+  primary_extension: .lasso
+  extensions:
+  - .inc
+  - .las
+  - .lasso9
+  - .ldml
+
+Less:
+  type: markup
+  primary_extension: .less
+
+LilyPond:
+  primary_extension: .ly
+  extensions:
+  - .ily
+
+Literate Haskell:
+  type: programming
+  primary_extension: .lhs
+
+LiveScript:
+  type: programming
+  color: "#499886"
+  primary_extension: .ls
+  extensions:
+  - ._ls
+
+Logtalk:
+  type: programming
+  primary_extension: .lgt
+
+Lua:
+  type: programming
+  color: "#fa1fa1"
+  primary_extension: .lua
+  extensions:
+  - .nse
+  - .pd_lua
+
+Makefile:
+  extensions:
+  - .mak
+  - .mk
+  primary_extension: .mak
+
+Mako:
+  primary_extension: .mako
+  extensions:
+  - .mao
+
+Markdown:
+  type: markup
+  primary_extension: .md
+  extensions:
+  - .markdown
+  - .mkd
+  - .mkdown
+  - .ron
+
+Matlab:
+  type: programming
+  color: "#bb92ac"
+  primary_extension: .matlab
+
+Max:
+  type: programming
+  color: "#ce279c"
+  primary_extension: .mxt
+  extensions:
+  - .maxhelp
+  - .maxpat
+
+MiniD: # Legacy
+  searchable: false
+  primary_extension: .minid # Dummy extension
+
+Mirah:
+  type: programming
+  color: "#c7a938"
+  primary_extension: .druby
+  extensions:
+  - .duby
+  - .mir
+  - .mirah
+
+Monkey:
+  type: programming
+  primary_extension: .monkey
+
+Moocode:
+  primary_extension: .moo
+
+MoonScript:
+  type: programming
+  primary_extension: .moon
+
+Myghty:
+  primary_extension: .myt
+
+Nemerle:
+  type: programming
+  color: "#0d3c6e"
+  primary_extension: .n
+
+Nginx:
+  type: markup
+  primary_extension: .nginxconf
+
+Nimrod:
+  type: programming
+  color: "#37775b"
+  primary_extension: .nim
+  extensions:
+  - .nimrod
+
+Nu:
+  type: programming
+  color: "#c9df40"
+  primary_extension: .nu
+
+NumPy:
+  primary_extension: .numpy
+  extensions:
+  - .numpyw
+  - .numsc
+
+OCaml:
+  type: programming
+  color: "#3be133"
+  primary_extension: .ml
+  extensions:
+  - .mli
+  - .mll
+  - .mly
+
+ObjDump:
+  type: data
+  primary_extension: .objdump
+
+Objective-C:
+  type: programming
+  color: "#438eff"
+  primary_extension: .m
+  extensions:
+  - .mm
+
+Objective-J:
+  type: programming
+  color: "#ff0c5a"
+  primary_extension: .j
+  extensions:
+  - .sj
+
+Omgrofl:
+  type: programming
+  primary_extension: .omgrofl
+  color: "#cabbff"
+  extensions:
+  - .omgrofl
+
+Opa:
+  type: programming
+  primary_extension: .opa
+
+OpenCL:
+  type: programming
+  primary_extension: .cl
+
+OpenEdge ABL:
+  type: programming
+  primary_extension: .p
+
+PHP:
+  type: programming
+  color: "#6e03c1"
+  primary_extension: .php
+  extensions:
+  - .aw
+  - .ctp
+  - .php3
+  - .php4
+  - .php5
+  - .phpt
+
+Parrot:
+  type: programming
+  color: "#f3ca0a"
+  primary_extension: .parrot # Dummy extension
+
+Parrot Internal Representation:
+  type: programming
+  primary_extension: .pir
+
+Parrot Assembly:
+  type: programming
+  primary_extension: .pasm
+
+Perl:
+  type: programming
+  color: "#0298c3"
+  primary_extension: .pl
+  extensions:
+  - .PL
+  - .perl
+  - .ph
+  - .plx
+  - .pm6
+  - .pod
+  - .psgi
+
+PowerShell:
+  type: programming
+  primary_extension: .ps1
+
+Prolog:
+  type: programming
+  color: "#74283c"
+  primary_extension: .prolog
+  extensions:
+  - .pro
+
+Puppet:
+  type: programming
+  color: "#cc5555"
+  primary_extension: .pp
+  extensions:
+  - .pp
+
+Pure Data:
+  type: programming
+  color: "#91de79"
+  primary_extension: .pd
+
+Python:
+  type: programming
+  color: "#3581ba"
+  primary_extension: .py
+  extensions:
+  - .pyw
+  - .wsgi
+  - .xpy
+
+Python traceback:
+  type: data
+  searchable: false
+  primary_extension: .pytb
+
+R:
+  type: programming
+  color: "#198ce7"
+  primary_extension: .r
+
+RHTML:
+  type: markup
+  primary_extension: .rhtml
+
+Racket:
+  type: programming
+  color: "#ae17ff"
+  primary_extension: .rkt
+  extensions:
+  - .rktd
+  - .rktl
+
+Raw token data:
+  primary_extension: .raw
+
+Rebol:
+  type: programming
+  color: "#358a5b"
+  primary_extension: .rebol
+  extensions:
+  - .r2
+  - .r3
+
+Redcode:
+  primary_extension: .cw
+
+Ruby:
+  type: programming
+  color: "#701516"
+  primary_extension: .rb
+
+Rust:
+  type: programming
+  color: "#dea584"
+  primary_extension: .rs
+
+SCSS:
+  type: markup
+  primary_extension: .scss
+
+SQL:
+  type: data
+  searchable: false
+  primary_extension: .sql
+
+Sage:
+  type: programming
+  primary_extension: .sage
+
+Sass:
+  type: markup
+  primary_extension: .sass
+
+Scala:
+  type: programming
+  color: "#7dd3b0"
+  primary_extension: .scala
+
+Scheme:
+  type: programming
+  color: "#1e4aec"
+  primary_extension: .scm
+  extensions:
+  - .sls
+  - .ss
+
+Scilab:
+  type: programming
+  primary_extension: .sci
+
+Self:
+  type: programming
+  color: "#0579aa"
+  primary_extension: .self
+
+Shell:
+  type: programming
+  color: "#5861ce"
+  primary_extension: .sh
+  extensions:
+  - .bash
+  - .tmux
+
+Smalltalk:
+  type: programming
+  color: "#596706"
+  primary_extension: .st
+
+Smarty:
+  primary_extension: .tpl
+
+Standard ML:
+  type: programming
+  color: "#dc566d"
+  primary_extension: .sml
+
+SuperCollider:
+  type: programming
+  color: "#46390b"
+  primary_extension: .sc
+  extensions:
+  - .scd
+
+Tcl:
+  type: programming
+  color: "#e4cc98"
+  primary_extension: .tcl
+
+Tcsh:
+  type: programming
+  primary_extension: .tcsh
+  extensions:
+  - .csh
+
+TeX:
+  type: markup
+  primary_extension: .tex
+  extensions:
+  - .aux
+  - .dtx
+  - .ins
+  - .ltx
+  - .sty
+  - .toc
+
+Tea:
+  type: markup
+  primary_extension: .tea
+
+Textile:
+  type: markup
+  primary_extension: .textile
+
+Turing:
+  type: programming
+  color: "#45f715"
+  primary_extension: .t
+  extensions:
+  - .tu
+
+Twig:
+  type: markup
+  primary_extension: .twig
+
+VHDL:
+  type: programming
+  color: "#543978"
+  primary_extension: .vhdl
+
+Vala:
+  type: programming
+  color: "#ee7d06"
+  primary_extension: .vala
+  extensions:
+  - .vapi
+
+Verilog:
+  type: programming
+  color: "#848bf3"
+  primary_extension: .v
+  extensions:
+  - .sv
+  - .svh
+  - .vh
+
+VimL:
+  type: programming
+  color: "#199c4b"
+  primary_extension: .vim
+
+Visual Basic:
+  type: programming
+  color: "#945db7"
+  primary_extension: .vb
+  extensions:
+  - .bas
+  - .frx
+  - .vba
+  - .vbs
+
+XML:
+  type: markup
+  primary_extension: .xml
+  extensions:
+  - .ccxml
+  - .dita
+  - .ditamap
+  - .ditaval
+  - .glade
+  - .grxml
+  - .kml
+  - .mxml
+  - .plist
+  - .rdf
+  - .rss
+  - .scxml
+  - .svg
+  - .tmCommand
+  - .tmLanguage
+  - .tmPreferences
+  - .tmSnippet
+  - .tml
+  - .vxml
+  - .wsdl
+  - .wxi
+  - .wxl
+  - .wxs
+  - .xaml
+  - .xlf
+  - .xliff
+  - .xsd
+  - .xsl
+  - .xul
+
+XQuery:
+  type: programming
+  color: "#2700e2"
+  primary_extension: .xquery
+  extensions:
+  - .xq
+  - .xqy
+
+XS:
+  primary_extension: .xs
+
+XSLT:
+  type: markup
+  primary_extension: .xslt
+
+YAML:
+  type: markup
+  primary_extension: .yml
+  extensions:
+  - .yaml
+
+eC:
+  type: programming
+  primary_extension: .ec
+  extensions:
+  - .eh
+
+fish:
+  type: programming
+  primary_extension: .fish
+
+mupad:
+  primary_extension: .mu
+
+ooc:
+  type: programming
+  color: "#b0b77e"
+  primary_extension: .ooc
+
+reStructuredText:
+  type: markup
+  primary_extension: .rst
+  extensions:
+  - .rest
