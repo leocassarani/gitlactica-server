@@ -1,6 +1,6 @@
 module Gitlactica
   module GitHub
-    Tree = Struct.new(:blobs) do
+    class Tree
       def self.for_repo(repo, branch, &block)
         url = "repos/#{repo.full_name}/git/trees/#{branch}"
 
@@ -18,6 +18,12 @@ module Gitlactica
           .map    { |blob| GitHub::Blob.from_api(blob) }
 
         new(blobs)
+      end
+
+      attr_reader :blobs
+
+      def initialize(blobs)
+        @blobs = blobs
       end
     end
   end
