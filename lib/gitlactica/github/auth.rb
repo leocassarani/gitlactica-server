@@ -1,9 +1,6 @@
 module Gitlactica
   module GitHub
     module Auth
-      CONFIG_DIR = File.expand_path('../../../../config', __FILE__)
-      AUTH_YML   = File.join(CONFIG_DIR, 'auth.yml')
-
       extend self
 
       def authenticatable?
@@ -22,8 +19,10 @@ module Gitlactica
 
       def details
         @details ||= begin
-          if File.exists?(AUTH_YML)
-            yml = YAML.load_file(AUTH_YML)
+          file_path = Config.file_path('auth.yml')
+
+          if File.exists?(file_path)
+            yml = YAML.load_file(file_path)
             yml.fetch('github', {})
           else
             {}
