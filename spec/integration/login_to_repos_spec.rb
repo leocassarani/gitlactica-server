@@ -20,19 +20,15 @@ describe "Gitlactica" do
                 name: "ace",
                 full_name: "defunkt/ace",
                 language: "JavaScript",
+                color: "#f15501",
                 description: "Ajax.org Cloud9 Editor"
               },
               {
                 name: "defunkt.github.com",
                 full_name: "defunkt/defunkt.github.com",
                 language: nil,
+                color: nil,
                 description: "My GitHub Page"
-              },
-              {
-                name: "evilbot",
-                full_name: "defunkt/evilbot",
-                language: "CoffeeScript",
-                description: "an evil bot that's definitely not for convore"
               }
             ]
           }

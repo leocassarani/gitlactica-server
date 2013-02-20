@@ -1,42 +1,30 @@
 module Gitlactica
   class LanguageDetector
-    attr_reader :languages, :extensions
+    attr_reader :extensions, :library
 
-    def initialize(languages)
-      @languages  = languages
-      @extensions = precompute_extensions
-      @cache      = {}
+    def initialize(languages, library)
+      @extensions = extensions_map(languages)
+      @library    = library
     end
 
     def detect(extension)
-      if known_extension?(extension)
+      if extensions.has_key?(extension)
         name = extensions.fetch(extension)
-        language_with_name(name)
+        library.with_name(name)
       else
-        Language::UnknownLanguage
+        library.unknown_language
       end
     end
 
     private
 
-    def known_extension?(extension)
-      extensions.has_key?(extension)
-    end
-
-    def language_with_name(name)
-      @cache[name] ||= begin
-        hash = languages.fetch(name)
-        Language.from_hash(name, hash)
-      end
-    end
-
-    def precompute_extensions
+    def extensions_map(languages)
       languages.inject({}) do |memo, (key, language)|
-        memo.merge(extensions_hash(language, key))
+        memo.merge(language_extensions(language, key))
       end
     end
 
-    def extensions_hash(language, key)
+    def language_extensions(language, key)
       extensions = []
       extensions << language.fetch('primary_extension')
       extensions.concat language.fetch('extensions', [])

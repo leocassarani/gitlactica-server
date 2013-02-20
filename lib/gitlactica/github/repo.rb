@@ -22,7 +22,7 @@ module Gitlactica
       def initialize(attr = {})
         @full_name   = attr.fetch(:full_name)
         @name        = attr.fetch(:name, '')
-        @language    = attr.fetch(:language, nil)
+        @language    = Language.with_name(attr[:language])
         @description = attr.fetch(:description, '')
       end
 
@@ -39,7 +39,8 @@ module Gitlactica
         {
           name: name,
           full_name: full_name,
-          language: language,
+          language: language.name,
+          color: language.color,
           description: description
         }
       end
