@@ -28,5 +28,14 @@ module Gitlactica
         { login: "tcrayford", last_commit: "2013-02-03T15:46:17Z" },
       ]
     end
+
+    it "ignores commits without a committer" do
+      has_committer = commit(tom, "2013-02-03T15:46:17Z")
+      no_committer  = commit(nil, "2013-01-17T14:41:28Z")
+
+      RecentCommitters.for_commits([has_committer, no_committer]).should == [
+        { login: "tcrayford", last_commit: "2013-02-03T15:46:17Z" }
+      ]
+    end
   end
 end

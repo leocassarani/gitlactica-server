@@ -13,7 +13,7 @@ module Gitlactica
         commit = json.fetch('commit')
         new(
           committer: GitHub::User.from_api(committer),
-          date: commit.fetch('committer', {}).fetch('date')
+          date: commit.fetch('committer').fetch('date')
         )
       end
 

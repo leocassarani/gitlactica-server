@@ -4,7 +4,11 @@ module Gitlactica
     def self.for_commits(commits)
       dates = commits.inject({}) do |memo, commit|
         user = commit.committer
-        memo.has_key?(user) ? memo : memo.merge(user => commit)
+        if user.nil? || memo.has_key?(user)
+          memo
+        else
+          memo.merge(user => commit)
+        end
       end
       map_dates(dates)
     end
