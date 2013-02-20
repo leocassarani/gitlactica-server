@@ -352,7 +352,6 @@ Gentoo Eclass:
   primary_extension: .eclass
 
 Gettext Catalog:
-  searchable: false
   primary_extension: .po
   extensions:
   - .pot
@@ -461,7 +460,6 @@ Ioke:
 
 JSON:
   type: data
-  searchable: false
   primary_extension: .json
 
 Java:
@@ -580,7 +578,6 @@ Max:
   - .maxpat
 
 MiniD: # Legacy
-  searchable: false
   primary_extension: .minid # Dummy extension
 
 Mirah:
@@ -751,7 +748,6 @@ Python:
 
 Python traceback:
   type: data
-  searchable: false
   primary_extension: .pytb
 
 R:
@@ -801,7 +797,6 @@ SCSS:
 
 SQL:
   type: data
-  searchable: false
   primary_extension: .sql
 
 Sage:
