@@ -1,10 +1,12 @@
 require 'eventmachine'
 require 'em-http-request'
 require 'em-websocket'
+require 'thin'
 require 'yajl'
 require 'yaml'
 
 require_relative 'gitlactica/config'
+require_relative 'gitlactica/event_dispatcher'
 require_relative 'gitlactica/github'
 require_relative 'gitlactica/language'
 require_relative 'gitlactica/language_detector'
@@ -14,6 +16,7 @@ require_relative 'gitlactica/subscription'
 require_relative 'gitlactica/subscription_register'
 require_relative 'gitlactica/recent_committers'
 require_relative 'gitlactica/repo_complexity'
+require_relative 'gitlactica/webhook_server'
 require_relative 'gitlactica/websocket_client'
 
 module Gitlactica
@@ -25,6 +28,7 @@ module Gitlactica
     def initialize
       @clients = []
       @subscriptions = SubscriptionRegister.new
+      @dispatcher = EventDispatcher.new(@subscriptions)
     end
 
     def run
@@ -34,6 +38,9 @@ module Gitlactica
         ws.onclose { client_remove(client) }
         ws.onmessage { |msg| client_msg(client, msg) }
       end
+
+      Thin::Logging.silent = true
+      Thin::Server.start(WebHookServer.new(@dispatcher), 'localhost', 3000)
     end
 
     private
