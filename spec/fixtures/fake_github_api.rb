@@ -15,9 +15,18 @@ class FakeGitHubApi < Sinatra::Base
     respond_with_fixture('raptor_commits.json')
   end
 
+  get '/repos/carlmw/gitlactica/commits' do
+    respond_with_fixture('gitlactica_commits.json')
+  end
+
   get '/repos/garybernhardt/raptor/git/trees/master' do
     pass unless params.has_key?('recursive')
     respond_with_fixture('raptor_tree.json')
+  end
+
+  get '/repos/carlmw/gitlactica/git/trees/master' do
+    pass unless params.has_key?('recursive')
+    respond_with_fixture('gitlactica_tree.json')
   end
 
   not_found do
