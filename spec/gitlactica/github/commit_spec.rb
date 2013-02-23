@@ -1,28 +1,13 @@
-require './lib/gitlactica/github/user'
 require './lib/gitlactica/github/commit'
 
 module Gitlactica::GitHub
   describe Gitlactica::GitHub::Commit do
-    let(:json) { {
-      'sha' => "0495181f0fd54630717773bbc2e60a6a04667389",
-      'commit' => {
-        'committer' => {
-          'name' => "Carl Whittaker",
-          'email' => "carl.whittaker@unboxedconsulting.com",
-          'date' => "2012-10-31T17:50:48Z"
-        },
-      },
-      'committer' => {
-        'login' => "carlmw",
-        'id' => 122096,
-        'type' => "User"
-      }
-    } }
+    it "is equal to commits with the same SHA" do
+      Commit.new(sha: "123").should == Commit.new(sha: "123")
+    end
 
-    let(:commit) { Commit.from_api(json) }
-    subject { commit }
-
-    its(:committer) { should == User.new('carlmw') }
-    its(:date) { should == "2012-10-31T17:50:48Z" }
+    it "is different from commits with different SHA" do
+      Commit.new(sha: "123").should_not == Commit.new(sha: "456")
+    end
   end
 end

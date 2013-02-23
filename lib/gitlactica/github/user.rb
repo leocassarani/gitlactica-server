@@ -1,10 +1,11 @@
 module Gitlactica
   module GitHub
     User = Struct.new(:login) do
-      def self.from_api(json)
+      def self.from_commit(json)
         return if json.nil?
-        login = json.fetch('login')
-        new(login)
+        new(
+          json.fetch('login')
+        )
       end
 
       def repos(&block)

@@ -2,19 +2,20 @@ require './lib/gitlactica/github/user'
 
 module Gitlactica::GitHub
   describe Gitlactica::GitHub::User do
-    describe "creating an instance from an API response" do
+    describe "mapping from a commit" do
       let(:json) { {
         'type'  => "User",
-        'login' => "garybernhardt"
+        'login' => "garybernhardt",
+        "id" => 45707
       } }
 
-      let(:user) { User.from_api(json) }
+      let(:user) { User.from_commit(json) }
       subject { user }
 
       its(:login) { should == "garybernhardt" }
 
       it "returns nil when given nil json input" do
-        User.from_api(nil).should be_nil
+        User.from_commit(nil).should be_nil
       end
     end
 
