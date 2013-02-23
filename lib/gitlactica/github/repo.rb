@@ -9,21 +9,16 @@ module Gitlactica
       end
 
       def self.from_api(json)
-        new(
-          name: json.fetch('name'),
-          full_name: json.fetch('full_name'),
-          language: json.fetch('language', nil),
-          description: json.fetch('description', ''),
-        )
+        GitHub::RepoMapper.from_api(json, self)
       end
 
       attr_reader :full_name, :name, :language, :description
 
-      def initialize(attr = {})
-        @full_name   = attr.fetch(:full_name)
-        @name        = attr.fetch(:name, '')
-        @language    = Language.with_name(attr[:language])
-        @description = attr.fetch(:description, '')
+      def initialize(params)
+        @full_name   = params.fetch(:full_name)
+        @name        = params.fetch(:name, '')
+        @language    = params.fetch(:language, nil)
+        @description = params.fetch(:description, '')
       end
 
       def recent_commits(&block)
