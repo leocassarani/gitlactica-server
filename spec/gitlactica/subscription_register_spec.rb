@@ -41,6 +41,10 @@ module Gitlactica
       end
     end
 
-    it "unsubscribes a given client"
+    it "unsubscribes a given client from all repos" do
+      register.subscribe(client, repo)
+      register.unsubscribe(client)
+      register.clients_for_repo(repo).should_not include(client)
+    end
   end
 end

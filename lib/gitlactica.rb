@@ -51,6 +51,7 @@ module Gitlactica
 
     def client_remove(client)
       @clients.delete(client)
+      @subscriptions.unsubscribe(client)
     end
 
     def client_msg(client, json)
