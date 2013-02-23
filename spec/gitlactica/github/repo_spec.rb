@@ -21,5 +21,17 @@ module Gitlactica
     its(:full_name) { should == "igrigorik/em-websocket" }
     its(:language) { should == ruby }
     its(:description) { should == "EventMachine based WebSocket server" }
+
+    describe "equality" do
+      before { Gitlactica::Language.stub(:with_name) }
+
+      it "is equal to a repository with the same full name" do
+        GitHub::Repo.new(full_name: "technoweenie/faraday").should == GitHub::Repo.new(full_name: "technoweenie/faraday")
+      end
+
+      it "is different from repos with a different full name" do
+        GitHub::Repo.new(full_name: "tcrayford/value").should_not == GitHub::Repo.new(full_name: "garybernhardt/value")
+      end
+    end
   end
 end

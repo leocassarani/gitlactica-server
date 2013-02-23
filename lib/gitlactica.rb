@@ -4,7 +4,6 @@ require 'em-websocket'
 require 'yajl'
 require 'yaml'
 
-require_relative 'gitlactica/client'
 require_relative 'gitlactica/config'
 require_relative 'gitlactica/github'
 require_relative 'gitlactica/language'
@@ -12,8 +11,10 @@ require_relative 'gitlactica/language_detector'
 require_relative 'gitlactica/language_library'
 require_relative 'gitlactica/message'
 require_relative 'gitlactica/subscription'
+require_relative 'gitlactica/subscription_register'
 require_relative 'gitlactica/recent_committers'
 require_relative 'gitlactica/repo_complexity'
+require_relative 'gitlactica/websocket_client'
 
 module Gitlactica
   class Application
@@ -23,11 +24,12 @@ module Gitlactica
 
     def initialize
       @clients = []
+      @subscriptions = SubscriptionRegister.new
     end
 
     def run
       EM::WebSocket.start(host: 'localhost', port: 8080) do |ws|
-        client = Client.new(ws)
+        client = WebSocketClient.new(ws, @subscriptions)
         ws.onopen  { client_add(client) }
         ws.onclose { client_remove(client) }
         ws.onmessage { |msg| client_msg(client, msg) }
@@ -47,7 +49,7 @@ module Gitlactica
     def client_msg(client, json)
       msg = Message.new(json)
       client.process(msg)
-    rescue Message::InvalidJSONError, Client::InvalidMessageError
+    rescue Message::InvalidJSONError, WebSocketClient::InvalidMessageError
       puts "Invalid message received: #{json}"
     end
   end

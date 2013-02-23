@@ -44,6 +44,18 @@ module Gitlactica
           description: description
         }
       end
+
+      # Equality
+
+      def ==(obj)
+        obj.is_a?(self.class) && obj.full_name == full_name
+      end
+
+      alias :eql? :==
+
+      def hash
+        full_name.hash
+      end
     end
   end
 end

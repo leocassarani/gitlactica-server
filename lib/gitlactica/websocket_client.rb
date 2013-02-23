@@ -1,9 +1,12 @@
 module Gitlactica
-  class Client
+  class WebSocketClient
     class InvalidMessageError < StandardError ; end
 
-    def initialize(socket)
-      @socket = socket
+    attr_reader :subscriptions
+
+    def initialize(socket, subscriptions)
+      @socket        = socket
+      @subscriptions = subscriptions
     end
 
     # Processes an incoming message from the WebSocket
@@ -24,7 +27,7 @@ module Gitlactica
     def process_login(msg)
       user = GitHub::User.new(msg.fetch(:login))
       user.repos do |repos|
-        send_event(:repos, {
+        send_msg(:repos, {
           login: user.login,
           repos: repos.map(&:to_h)
         })
@@ -35,35 +38,35 @@ module Gitlactica
       repos = msg.fetch(:repos, [])
       repos.each do |name|
         repo = GitHub::Repo.new(full_name: name)
-        process_subscription(repo)
+        subscription = subscriptions.subscribe(self, repo)
+        process_subscription(subscription)
       end
     end
 
-    def process_subscription(repo)
-      subscription = Subscription.new(repo)
-
+    def process_subscription(subscription)
       subscription.committers do |committers|
-        send_event(:committers, {
-          repo: repo.full_name,
+        send_msg(:committers, {
+          repo: subscription.repo.full_name,
           committers: committers
         })
       end
 
       subscription.complexity do |complexity|
-        send_event(:complexity, {
-          repo: repo.full_name,
+        send_msg(:complexity, {
+          repo: subscription.repo.full_name,
           complexity: complexity
         })
       end
     end
 
-    def send_event(event, data)
-      send_msg(event: event, data: data)
-    end
-
-    def send_msg(msg)
+    def send_msg(event, data)
+      msg = make_msg(event, data)
       json = Yajl::Encoder.encode(msg)
       @socket.send(json)
+    end
+
+    def make_msg(event, data)
+      { event: event, data: data }
     end
   end
 end

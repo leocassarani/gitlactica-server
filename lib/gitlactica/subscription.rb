@@ -1,11 +1,5 @@
 module Gitlactica
-  class Subscription
-    attr_reader :repo
-
-    def initialize(repo)
-      @repo = repo
-    end
-
+  Subscription = Struct.new(:client, :repo) do
     def committers(&block)
       repo.recent_commits do |commits|
         EM.defer do
