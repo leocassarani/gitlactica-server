@@ -63,6 +63,8 @@ module Gitlactica
         obj.type == type
     end
 
+    alias :eql? :==
+
     def hash
       name.hash
     end
