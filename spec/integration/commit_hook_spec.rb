@@ -6,8 +6,6 @@ describe "Gitlactica" do
   include WebSocketHelper
 
   it "receives a commit hook and sends the commit data to the client" do
-    pending
-
     EM.run {
       mock_github_api('localhost', 3333)
 

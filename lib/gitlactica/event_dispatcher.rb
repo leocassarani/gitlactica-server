@@ -7,7 +7,11 @@ module Gitlactica
     end
 
     def dispatch(msg)
-      # TODO
+      # TODO: error handling
+      event = GitHub::PushEvent.from_api(msg)
+      subscriptions.clients_for_repo(event.repo) do |client|
+        client.send_event(event)
+      end
     end
   end
 end

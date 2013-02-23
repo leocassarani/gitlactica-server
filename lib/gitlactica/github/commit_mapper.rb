@@ -11,6 +11,14 @@ module Gitlactica
         )
       end
 
+      def from_push_event(json, klass)
+        klass.new(
+          sha: json.fetch('id'),
+          committer: GitHub::User.from_committer(committer(json)),
+          date: json.fetch('timestamp')
+        )
+      end
+
       private
 
       def date(json)

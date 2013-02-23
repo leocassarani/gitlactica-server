@@ -12,6 +12,10 @@ module Gitlactica
         GitHub::CommitMapper.from_repo(json, self)
       end
 
+      def self.from_push_event(json)
+        GitHub::CommitMapper.from_push_event(json, self)
+      end
+
       attr_reader :sha, :committer, :date
 
       def initialize(params)

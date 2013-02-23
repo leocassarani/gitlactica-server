@@ -22,6 +22,10 @@ module Gitlactica
       end
     end
 
+    def send_event(event)
+      send_msg(:commits, event.to_h)
+    end
+
     private
 
     def process_login(msg)

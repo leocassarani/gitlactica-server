@@ -19,6 +19,19 @@ module Gitlactica::GitHub
       end
     end
 
+    describe "mapping from a committer" do
+      let(:json) { {
+        'email' => "carl.whittaker@unboxedconsulting.com",
+        'name' => "Carl Whittaker",
+        'username' => "carlmw"
+      } }
+
+      let(:user) { User.from_committer(json) }
+      subject { user }
+
+      its(:login) { should == "carlmw" }
+    end
+
     it "is equal to users with the same login" do
       User.new("tcrayford").should == User.new("tcrayford")
     end

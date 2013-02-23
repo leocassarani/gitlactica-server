@@ -8,6 +8,12 @@ module Gitlactica
         )
       end
 
+      def self.from_committer(json)
+        new(
+          json.fetch('username')
+        )
+      end
+
       def repos(&block)
         GitHub::Repo.all_by_user(self, &block)
       end

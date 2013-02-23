@@ -38,5 +38,49 @@ module Gitlactica::GitHub
       its(:committer) { should == user }
       its(:date) { should == "2012-10-31T17:50:48Z" }
     end
+
+    describe "mapping from a push event" do
+      let(:json) { {
+        'added' => [
+          "lib/subspace_channel.js",
+          "test/system.js",
+        ],
+        'author' => {
+          'email' => "carl.whittaker@unboxedconsulting.com",
+          'name' => "Carl Whittaker",
+          'username' => "carlmw"
+        },
+        'committer' => {
+          'email' => "carl.whittaker@unboxedconsulting.com",
+          'name' => "Carl Whittaker",
+          'username' => "carlmw"
+        },
+        'id' => "612ea64cf18c5200a6128b1cdf379031fe8aa69e",
+        'modified' => [
+          "lib/orbit_allocator.js",
+          "test/orbit_allocator.js"
+        ],
+        'removed' => [
+          "lib/derp.js"
+        ],
+        'timestamp' => "2013-02-20T09:38:41-08:00"
+      } }
+
+      let(:user) { mock(:user) }
+      before do
+        User.stub(:from_committer).with(
+          'email' => "carl.whittaker@unboxedconsulting.com",
+          'name' => "Carl Whittaker",
+          'username' => "carlmw"
+        ) { user }
+      end
+
+      let(:commit) { CommitMapper.from_push_event(json, OpenStruct) }
+      subject { commit }
+
+      its(:sha) { should == "612ea64cf18c5200a6128b1cdf379031fe8aa69e" }
+      its(:committer) { should == user }
+      its(:date) { should == "2013-02-20T09:38:41-08:00" }
+    end
   end
 end
