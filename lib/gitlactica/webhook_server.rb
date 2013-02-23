@@ -27,8 +27,11 @@ module Gitlactica
       # TODO: move this into a middleware
       json = request.body.read
       msg = Yajl::Parser.parse(json)
-
-      @dispatcher.dispatch(msg)
+      begin
+        @dispatcher.dispatch(msg)
+      rescue EventDispatcher::InvalidMessageError
+        puts "Invalid message received: #{json}"
+      end
     end
   end
 end
