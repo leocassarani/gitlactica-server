@@ -20,10 +20,6 @@ module Gitlactica
       end
     end
 
-    def send_event(event)
-      send_msg(:commits, event.to_h)
-    end
-
     def send_msg(event, data)
       msg = make_msg(event, data)
       json = Yajl::Encoder.encode(msg)

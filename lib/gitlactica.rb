@@ -6,7 +6,6 @@ require 'yajl'
 require 'yaml'
 
 require_relative 'gitlactica/config'
-require_relative 'gitlactica/event_dispatcher'
 require_relative 'gitlactica/github'
 require_relative 'gitlactica/language'
 require_relative 'gitlactica/language_detector'
@@ -28,7 +27,6 @@ module Gitlactica
     def initialize
       @clients = []
       @subscriptions = SubscriptionRegister.new
-      @dispatcher = EventDispatcher.new(@subscriptions)
     end
 
     def run
@@ -39,8 +37,9 @@ module Gitlactica
         ws.onmessage { |msg| client_msg(client, msg) }
       end
 
+      webhook = WebHookServer.new(@subscriptions)
       Thin::Logging.silent = true
-      Thin::Server.start(WebHookServer.new(@dispatcher), 'localhost', 3000)
+      Thin::Server.start(webhook, 'localhost', 3000)
     end
 
     private
