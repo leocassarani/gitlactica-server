@@ -1,4 +1,3 @@
-require './lib/gitlactica/subscription'
 require './lib/gitlactica/subscription_register'
 
 module Gitlactica
@@ -7,13 +6,13 @@ module Gitlactica
     let(:repo) { mock(:repo) }
     let(:register) { SubscriptionRegister.new }
 
-    describe "registering new subscriptions" do
+    describe "subscribing clients to repos" do
       it "creates and returns a new subscription for a given client and repo" do
-        subscription = register.subscribe(client, repo)
-        subscription.should == Subscription.new(client, repo)
+        register.subscribe(client, repo)
+        register.clients_for_repo(repo).should == [client]
       end
 
-      it "doesn't create new subscriptions if they already exist" do
+      it "doesn't subscribe clients twice to the same repo" do
         2.times { register.subscribe(client, repo) }
         register.clients_for_repo(repo).should have(1).client
       end
@@ -38,6 +37,20 @@ module Gitlactica
 
       it "returns an empty array if no one is subscribed to the repo" do
         register.clients_for_repo(repo).should be_empty
+      end
+    end
+
+    describe "#repos_for_client" do
+      let(:other_repo) { mock(:other_repo) }
+
+      it "returns all repos that the given client is subscribed to" do
+        register.subscribe(client, repo)
+        register.subscribe(client, other_repo)
+        register.repos_for_client(client).should == [repo, other_repo]
+      end
+
+      it "returns an empty array if the client isn't subscribed to any repos" do
+        register.repos_for_client(client).should be_empty
       end
     end
 

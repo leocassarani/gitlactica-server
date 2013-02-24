@@ -6,33 +6,28 @@ module Gitlactica
     end
 
     def clients_for_repo(repo)
-      subs = @repos[repo]
+      clients = @clients[repo]
       if block_given?
-        subs.each { |sub| yield sub.client }
+        clients.each { |client| yield client }
       else
-        subs.map(&:client)
+        clients
       end
+    end
+
+    def repos_for_client(client)
+      @repos[client]
     end
 
     def subscribe(client, repo)
-      subscription = Subscription.new(client, repo)
-
-      unless @repos[repo].include?(subscription)
-        @repos[repo] << subscription
-      end
-      unless @clients[client].include?(subscription)
-        @clients[client] << subscription
-      end
-
-      subscription
+      @repos[client] << repo   unless @repos[client].include?(repo)
+      @clients[repo] << client unless @clients[repo].include?(client)
     end
 
     def unsubscribe(client)
-      @clients[client].each do |sub|
-        repo = sub.repo
-        @repos[repo].delete(sub)
+      @repos[client].each do |repo|
+        @clients[repo].delete(client)
       end
-      @clients[client] = []
+      @repos[client] = []
     end
   end
 end
