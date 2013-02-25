@@ -22,16 +22,16 @@ describe "Gitlactica" do
           }
         )
 
+        websocket.expect('committers', 'complexity') do
+          mock_github_webhook('localhost', 3000).trigger('gitlactica.json')
+        end
+
         websocket.send_msg(
           event: "subscribe",
           data: {
             repos: ["carlmw/gitlactica"]
           }
         )
-
-        mock_github_webhook('localhost', 3000) do |hook|
-          hook.playback('gitlactica.json')
-        end
 
         websocket.timeout_after(0.3)
       end

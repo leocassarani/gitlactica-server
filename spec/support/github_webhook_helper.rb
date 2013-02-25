@@ -1,7 +1,6 @@
 module GitHubWebHookHelper
-  def mock_github_webhook(host, port, &block)
-    webhook = FakeGitHubWebHook.new("http://#{host}:#{port}")
-    block.call(webhook)
+  def mock_github_webhook(host, port)
+    FakeGitHubWebHook.new("http://#{host}:#{port}")
   end
 
   class FakeGitHubWebHook
@@ -11,7 +10,7 @@ module GitHubWebHookHelper
       @endpoint = EM::HttpRequest.new(endpoint)
     end
 
-    def playback(filename)
+    def trigger(filename)
       payload = fixture(filename)
       http = @endpoint.post(path: 'hooks', body: payload)
       http.errback { fail(http.error) }

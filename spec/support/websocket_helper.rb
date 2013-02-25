@@ -8,14 +8,17 @@ module WebSocketHelper
     include JSONHelper
 
     def initialize(endpoint, &block)
-      @expected = []
-      @socket = EM::WebSocketClient.connect(endpoint)
-      @socket.callback { block.call(self) }
-      @socket.stream { |json| handle_msg(json) }
+      @assertions   = []
+      @expectations = Expectations.new
+      @socket = socket(endpoint, block)
+    end
+
+    def expect(*events, &block)
+      @expectations.expect(events, block)
     end
 
     def should_receive_msg(msg)
-      @expected << msg
+      @assertions << msg
     end
 
     def send_msg(msg)
@@ -31,15 +34,56 @@ module WebSocketHelper
 
     private
 
-    def handle_msg(json)
-      msg = from_json(json)
+    def socket(endpoint, block)
+      socket = EM::WebSocketClient.connect(endpoint)
+      socket.callback { block.call(self) }
+      socket.stream { |json| process_msg(json) }
+      socket
+    end
 
-      if @expected.include?(msg)
-        @expected.delete(msg)
+    def process_msg(json)
+      msg = from_json(json)
+      event = msg.fetch(:event)
+
+      if @expectations.expected?(event)
+        @expectations.receive(event)
+      elsif @assertions.include?(msg)
+        @assertions.delete(msg)
       end
 
-      if @expected.empty?
+      if @assertions.empty? && @expectations.empty?
         EM.stop_event_loop
+      end
+    end
+  end
+
+  class Expectations
+    def initialize
+      @expectations = {}
+    end
+
+    def expect(events, block)
+      @expectations[events] = block
+    end
+
+    def expected?(event)
+      @expectations.any? { |es, _| es.include?(event) }
+    end
+
+    def empty?
+      @expectations.empty?
+    end
+
+    def receive(event)
+      events, block = @expectations.find { |es, _| es.include?(event) }
+
+      @expectations.delete(events)
+      remainder = events - [event]
+
+      if remainder.empty?
+        block.call
+      else
+        @expectations[remainder] = block
       end
     end
   end
