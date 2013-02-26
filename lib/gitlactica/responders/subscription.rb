@@ -14,9 +14,12 @@ module Gitlactica
         repos = msg.fetch(:repos)
         repos.each do |name|
           repo = GitHub::Repo.new(full_name: name)
-          subscribe_to(repo)
-          send_committers(repo)
-          send_complexity(repo)
+
+          EM.next_tick {
+            subscribe_to(repo)
+            send_committers(repo)
+            send_complexity(repo)
+          }
         end
       end
 
