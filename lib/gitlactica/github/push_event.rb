@@ -15,15 +15,6 @@ module Gitlactica
         @repo    = params.fetch(:repo)
         @commits = params.fetch(:commits)
       end
-
-      def to_h
-        {
-          repo: repo.full_name,
-          commits: commits.map { |commit|
-            { committer: commit.committer.login }
-          }
-        }
-      end
     end
   end
 end

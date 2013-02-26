@@ -80,42 +80,5 @@ module Gitlactica
         end
       end
     end
-
-    describe "serialization" do
-      let(:commit) {
-        GitHub::Commit.new(
-          sha: "d12efeaccf999adc602341c3e64f4941b2a782ed",
-          committer: GitHub::User.new("garybernhardt"),
-          added: [
-            'spec/inference_spec.rb'
-          ],
-          modified: [
-            'lib/raptor/delegation.rb',
-            'lib/raptor/inference.rb',
-            'lib/raptor/responders.rb',
-            'lib/raptor/router.rb'
-          ],
-          removed: [
-            'spec/infers_args_spec.rb'
-          ]
-        )
-      }
-
-      let(:event) {
-        GitHub::PushEvent.new(
-          repo: GitHub::Repo.new(full_name: "garybernhardt/raptor"),
-          commits: [commit]
-        )
-      }
-
-      it "serializes itself into a Hash" do
-        event.to_h.should == {
-          repo: "garybernhardt/raptor",
-          commits: [
-            { committer: "garybernhardt" }
-          ]
-        }
-      end
-    end
   end
 end
