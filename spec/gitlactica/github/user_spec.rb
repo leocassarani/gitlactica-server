@@ -14,7 +14,7 @@ module Gitlactica::GitHub
 
       its(:login) { should == "garybernhardt" }
 
-      it "returns nil when given nil json input" do
+      it "returns nil when given nil input" do
         User.from_commit(nil).should be_nil
       end
     end
@@ -30,6 +30,10 @@ module Gitlactica::GitHub
       subject { user }
 
       its(:login) { should == "carlmw" }
+
+      it "returns nil when given nil input" do
+        User.from_committer(nil).should be_nil
+      end
     end
 
     it "is equal to users with the same login" do
