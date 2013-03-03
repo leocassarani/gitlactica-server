@@ -3,6 +3,7 @@ module Gitlactica
     module Event
       extend self
 
+      # This method runs inside an EM.defer block when called by WebHookServer.
       def respond(msg, subscriptions)
         event = GitHub::PushEvent.from_api(msg)
         subscriptions.clients_for_repo(event.repo) do |client|
@@ -22,7 +23,6 @@ module Gitlactica
       def map_commits(commits)
         commits.map do |commit|
           changes = commit.changes
-
           {
             committer: commit.committer.login,
             added: changes.added_count,
