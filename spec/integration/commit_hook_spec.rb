@@ -17,7 +17,12 @@ describe "Gitlactica" do
           data: {
             repo: "carlmw/gitlactica",
             commits: [
-              { committer: "carlmw" }
+              {
+                committer: "carlmw",
+                added: 4,
+                modified: 5,
+                removed: 0
+              }
             ]
           }
         )

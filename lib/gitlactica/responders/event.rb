@@ -21,7 +21,14 @@ module Gitlactica
 
       def map_commits(commits)
         commits.map do |commit|
-          { committer: commit.committer.login }
+          changes = commit.changes
+
+          {
+            committer: commit.committer.login,
+            added: changes.added_count,
+            modified: changes.modified_count,
+            removed: changes.removed_count
+          }
         end
       end
     end

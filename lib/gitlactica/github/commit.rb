@@ -16,12 +16,13 @@ module Gitlactica
         GitHub::CommitMapper.from_push_event(json, self)
       end
 
-      attr_reader :sha, :committer, :date
+      attr_reader :sha, :committer, :date, :changes
 
       def initialize(params)
         @sha = params.fetch(:sha)
         @committer = params.fetch(:committer, nil)
         @date = params.fetch(:date, nil)
+        @changes = params.fetch(:changes, nil)
       end
 
       # Equality

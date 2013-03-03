@@ -15,7 +15,8 @@ module Gitlactica
         klass.new(
           sha: json.fetch('id'),
           committer: GitHub::User.from_committer(committer(json)),
-          date: json.fetch('timestamp')
+          date: json.fetch('timestamp'),
+          changes: GitHub::Changes.from_api(json)
         )
       end
 

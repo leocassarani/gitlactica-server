@@ -1,6 +1,7 @@
 require_relative 'github/auth'
 require_relative 'github/blob'
 require_relative 'github/client'
+require_relative 'github/changes'
 require_relative 'github/commit'
 require_relative 'github/commit_mapper'
 require_relative 'github/push_event'

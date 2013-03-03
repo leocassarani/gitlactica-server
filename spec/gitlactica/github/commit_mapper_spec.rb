@@ -4,6 +4,7 @@ require './lib/gitlactica/github/commit_mapper'
 module Gitlactica::GitHub
   describe Gitlactica::GitHub::CommitMapper do
     before { stub_const('Gitlactica::GitHub::User', Class.new) }
+    before { stub_const('Gitlactica::GitHub::Changes', Class.new) }
 
     describe "mapping from a commit object" do
       let(:json) { {
@@ -75,12 +76,18 @@ module Gitlactica::GitHub
         ) { user }
       end
 
+      let(:changes) { mock(:changes) }
+      before do
+        Changes.stub(:from_api).with(json) { changes }
+      end
+
       let(:commit) { CommitMapper.from_push_event(json, OpenStruct) }
       subject { commit }
 
       its(:sha) { should == "612ea64cf18c5200a6128b1cdf379031fe8aa69e" }
       its(:committer) { should == user }
       its(:date) { should == "2013-02-20T09:38:41-08:00" }
+      its(:changes) { should == changes }
     end
   end
 end
