@@ -7,26 +7,17 @@ class FakeGitHubApi < Sinatra::Base
     content_type :json
   end
 
-  get '/users/defunkt/repos' do
-    respond_with_fixture('defunkt_repos.json')
+  get '/users/:user/repos' do
+    respond_with_fixture("#{user}_repos.json") or pass
   end
 
-  get '/repos/garybernhardt/raptor/commits' do
-    respond_with_fixture('raptor_commits.json')
+  get '/repos/:user/:repo/commits' do
+    respond_with_fixture("#{repo}_commits.json") or pass
   end
 
-  get '/repos/carlmw/gitlactica/commits' do
-    respond_with_fixture('gitlactica_commits.json')
-  end
-
-  get '/repos/garybernhardt/raptor/git/trees/master' do
+  get '/repos/:user/:repo/git/trees/master' do
     pass unless params.has_key?('recursive')
-    respond_with_fixture('raptor_tree.json')
-  end
-
-  get '/repos/carlmw/gitlactica/git/trees/master' do
-    pass unless params.has_key?('recursive')
-    respond_with_fixture('gitlactica_tree.json')
+    respond_with_fixture("#{repo}_tree.json") or pass
   end
 
   not_found do
@@ -35,8 +26,17 @@ class FakeGitHubApi < Sinatra::Base
 
   private
 
+  # Returns nil when the given fixture isn't found.
   def respond_with_fixture(filename)
     path = File.join(GITHUB_API_DIR, filename)
-    File.read(path)
+    File.read(path) if File.exists?(path)
+  end
+
+  def repo
+    params[:repo]
+  end
+
+  def user
+    params[:user]
   end
 end
