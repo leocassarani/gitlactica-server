@@ -13,23 +13,18 @@ module Gitlactica
     #
     # Returns the Hash mapping languages to Arrays of files.
     def assign(files)
-      files.inject({}) do |memo, file|
-        language = language_for(file)
-        deep_merge(memo, language.name, file)
-      end
+      files.group_by { |file| language_name(file) }
     end
 
     private
 
+    def language_name(file)
+      language_for(file).name
+    end
+
     def language_for(file)
       ext = File.extname(file)
       Language.for_extension(ext)
-    end
-
-    def deep_merge(memo, key, value)
-      existing = memo.fetch(key, [])
-      new = existing.push(value)
-      memo.merge(key => new)
     end
   end
 end
