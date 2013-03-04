@@ -26,7 +26,7 @@ describe "Gitlactica" do
               {
                 name: "defunkt.github.com",
                 full_name: "defunkt/defunkt.github.com",
-                language: nil,
+                language: "Unknown",
                 color: nil,
                 description: "My GitHub Page"
               }

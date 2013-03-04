@@ -1,7 +1,7 @@
 module Gitlactica
   class Language
     class UnknownLanguage
-      def self.name; nil; end
+      def self.name; "Unknown"; end
       def self.programming?; false; end
       def self.color; nil; end
     end
