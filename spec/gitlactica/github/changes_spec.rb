@@ -38,20 +38,5 @@ module Gitlactica::GitHub
         changes.removed.should == ["lib/derp.js"]
       end
     end
-
-    it "returns the number of added files" do
-      changes = Changes.new(added: ["one", "test/two"])
-      changes.added_count.should == 2
-    end
-
-    it "returns the number of modified files" do
-      changes = Changes.new(modified: ["one", "test/two", "lib/three"])
-      changes.modified_count.should == 3
-    end
-
-    it "returns the number of removed files" do
-      changes = Changes.new(removed: ["one"])
-      changes.removed_count.should == 1
-    end
   end
 end

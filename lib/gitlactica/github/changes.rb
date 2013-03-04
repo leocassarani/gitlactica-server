@@ -16,18 +16,6 @@ module Gitlactica
         @modified = params.fetch(:modified, [])
         @removed = params.fetch(:removed, [])
       end
-
-      def added_count
-        added.count
-      end
-
-      def modified_count
-        modified.count
-      end
-
-      def removed_count
-        removed.count
-      end
     end
   end
 end

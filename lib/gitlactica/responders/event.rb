@@ -25,11 +25,15 @@ module Gitlactica
           changes = commit.changes
           {
             committer: commit.committer.login,
-            added: changes.added_count,
-            modified: changes.modified_count,
-            removed: changes.removed_count
+            added: languages(changes.added),
+            modified: languages(changes.modified),
+            removed: languages(changes.removed)
           }
         end
+      end
+
+      def languages(files)
+        LanguageGroups.assign(files)
       end
     end
   end

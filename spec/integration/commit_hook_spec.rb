@@ -19,9 +19,18 @@ describe "Gitlactica" do
             commits: [
               {
                 committer: "carlmw",
-                added: 2,
-                modified: 3,
-                removed: 0
+                added: {
+                  JavaScript: [
+                    "lib/sky_box.js",
+                    "test/sky_box.js"
+                  ],
+                },
+                modified: {
+                  HTML: ["index.html"],
+                  JavaScript: ["lib/gitlactica.js"],
+                  Unknown: ["textures/stars.jpg"]
+                },
+                removed: {}
               }
             ]
           }
