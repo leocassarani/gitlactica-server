@@ -19,8 +19,8 @@ describe "Gitlactica" do
             commits: [
               {
                 committer: "carlmw",
-                added: 4,
-                modified: 5,
+                added: 2,
+                modified: 3,
                 removed: 0
               }
             ]
