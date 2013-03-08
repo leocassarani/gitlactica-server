@@ -33,7 +33,7 @@ module Gitlactica
       end
 
       def languages(files)
-        LanguageGroups.assign(files)
+        files.group_by_language
       end
     end
   end

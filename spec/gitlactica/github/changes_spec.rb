@@ -1,6 +1,7 @@
+require './lib/gitlactica/file_list'
 require './lib/gitlactica/github/changes'
 
-module Gitlactica::GitHub
+module Gitlactica
   describe Gitlactica::GitHub::Changes do
     describe "mapping from the API" do
       let(:json) { {
@@ -17,25 +18,25 @@ module Gitlactica::GitHub
           ]
       } }
 
-      let(:changes) { Changes.from_api(json) }
+      let(:changes) { GitHub::Changes.from_api(json) }
       subject { changes }
 
       it "maps the files that were added" do
-        changes.added.should == [
+        changes.added.should == FileList.new([
           "lib/subspace_channel.js",
           "test/system.js"
-        ]
+        ])
       end
 
       it "maps the files that were modified" do
-        changes.modified.should == [
+        changes.modified.should == FileList.new([
           "lib/orbit_allocator.js",
           "test/orbit_allocator.js"
-        ]
+        ])
       end
 
       it "maps the files that were removed" do
-        changes.removed.should == ["lib/derp.js"]
+        changes.removed.should == FileList.new(["lib/derp.js"])
       end
     end
   end

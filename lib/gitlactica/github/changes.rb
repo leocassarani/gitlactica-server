@@ -12,9 +12,9 @@ module Gitlactica
       attr_reader :added, :modified, :removed
 
       def initialize(params)
-        @added = params.fetch(:added, [])
-        @modified = params.fetch(:modified, [])
-        @removed = params.fetch(:removed, [])
+        @added    = FileList.new(params.fetch(:added, []))
+        @modified = FileList.new(params.fetch(:modified, []))
+        @removed  = FileList.new(params.fetch(:removed, []))
       end
     end
   end
