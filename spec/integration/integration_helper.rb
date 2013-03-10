@@ -5,7 +5,7 @@ require 'em-websocket-client'
 require 'sinatra'
 require 'thin'
 
-require './lib/gitlactica'
+require 'gitlactica'
 
 require './spec/support/eventmachine_helper'
 require './spec/support/github_api_helper'
