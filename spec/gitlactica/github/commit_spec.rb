@@ -1,4 +1,4 @@
-require './lib/gitlactica/github/commit'
+require 'gitlactica/github/commit'
 
 module Gitlactica::GitHub
   describe Gitlactica::GitHub::Commit do

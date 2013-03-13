@@ -1,4 +1,4 @@
-require './lib/gitlactica/github/push_event'
+require 'gitlactica/github/push_event'
 
 module Gitlactica::GitHub
   class Commit; end

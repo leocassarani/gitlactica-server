@@ -1,5 +1,5 @@
-require './lib/gitlactica/file_list'
-require './lib/gitlactica/github/changes'
+require 'gitlactica/file_list'
+require 'gitlactica/github/changes'
 
 module Gitlactica
   describe Gitlactica::GitHub::Changes do

@@ -1,5 +1,5 @@
-require './lib/gitlactica/github/user'
-require './lib/gitlactica/recent_committers'
+require 'gitlactica/github/user'
+require 'gitlactica/recent_committers'
 
 module Gitlactica
   describe Gitlactica::RecentCommitters do

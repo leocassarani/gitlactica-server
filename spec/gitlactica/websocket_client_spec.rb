@@ -1,4 +1,4 @@
-require './lib/gitlactica/websocket_client'
+require 'gitlactica/websocket_client'
 
 describe Gitlactica::WebSocketClient do
   let(:socket) { mock(:socket) }

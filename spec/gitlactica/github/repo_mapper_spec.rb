@@ -1,5 +1,5 @@
 require 'ostruct'
-require './lib/gitlactica/github/repo_mapper'
+require 'gitlactica/github/repo_mapper'
 
 module Gitlactica
   class Language; end

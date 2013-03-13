@@ -1,4 +1,4 @@
-require './lib/gitlactica/language'
+require 'gitlactica/language'
 
 module Gitlactica
   module Config; end

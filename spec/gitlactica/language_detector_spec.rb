@@ -1,4 +1,4 @@
-require './lib/gitlactica/language_detector'
+require 'gitlactica/language_detector'
 
 module Gitlactica
   describe Gitlactica::LanguageDetector do

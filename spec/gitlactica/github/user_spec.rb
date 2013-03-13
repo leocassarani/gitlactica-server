@@ -1,4 +1,4 @@
-require './lib/gitlactica/github/user'
+require 'gitlactica/github/user'
 
 module Gitlactica::GitHub
   describe Gitlactica::GitHub::User do

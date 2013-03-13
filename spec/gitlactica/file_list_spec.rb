@@ -1,4 +1,4 @@
-require './lib/gitlactica/file_list'
+require 'gitlactica/file_list'
 
 module Gitlactica
   class Language; end

@@ -1,5 +1,5 @@
-require './lib/gitlactica/github/blob'
-require './lib/gitlactica/repo_complexity'
+require 'gitlactica/github/blob'
+require 'gitlactica/repo_complexity'
 
 module Gitlactica
   class Language; end

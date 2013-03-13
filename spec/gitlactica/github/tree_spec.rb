@@ -1,5 +1,5 @@
-require './lib/gitlactica/github/blob'
-require './lib/gitlactica/github/tree'
+require 'gitlactica/github/blob'
+require 'gitlactica/github/tree'
 
 module Gitlactica::GitHub
   describe Gitlactica::GitHub::Tree do

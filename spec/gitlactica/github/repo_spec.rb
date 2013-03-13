@@ -1,4 +1,4 @@
-require './lib/gitlactica/github/repo'
+require 'gitlactica/github/repo'
 
 module Gitlactica::GitHub
   describe "equality" do

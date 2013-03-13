@@ -1,4 +1,4 @@
-require './lib/gitlactica/github/blob'
+require 'gitlactica/github/blob'
 
 module Gitlactica::GitHub
   describe Gitlactica::GitHub::Blob do

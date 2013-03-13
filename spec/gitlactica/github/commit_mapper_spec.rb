@@ -1,5 +1,5 @@
 require 'ostruct'
-require './lib/gitlactica/github/commit_mapper'
+require 'gitlactica/github/commit_mapper'
 
 module Gitlactica::GitHub
   describe Gitlactica::GitHub::CommitMapper do

@@ -1,4 +1,4 @@
-require './lib/gitlactica/language_library'
+require 'gitlactica/language_library'
 
 module Gitlactica
   describe Gitlactica::LanguageLibrary do

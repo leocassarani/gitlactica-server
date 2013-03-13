@@ -1,5 +1,5 @@
 require 'yajl'
-require './lib/gitlactica/message'
+require 'gitlactica/message'
 
 describe Gitlactica::Message do
   it "raises an error when given invalid JSON" do

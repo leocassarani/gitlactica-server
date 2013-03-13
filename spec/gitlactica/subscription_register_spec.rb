@@ -1,4 +1,4 @@
-require './lib/gitlactica/subscription_register'
+require 'gitlactica/subscription_register'
 
 module Gitlactica
   describe Gitlactica::SubscriptionRegister do
