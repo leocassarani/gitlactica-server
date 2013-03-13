@@ -12,6 +12,16 @@ describe "Gitlactica" do
       Gitlactica::Application.run
 
       mock_websocket('localhost', 8080) do |websocket|
+        websocket.expect('committers', 'complexity') do
+          mock_github_webhook('localhost', 3000).trigger('gitlactica.json')
+
+          websocket.expect('complexity') {
+            # By registering a handler for the 'complexity' event,
+            # we avoid synchronization issues by letting the request
+            # for the repo's complexity run to completion.
+          }
+        end
+
         websocket.should_receive_msg(
           event: "commits",
           data: {
@@ -35,10 +45,6 @@ describe "Gitlactica" do
             ]
           }
         )
-
-        websocket.expect('committers', 'complexity') do
-          mock_github_webhook('localhost', 3000).trigger('gitlactica.json')
-        end
 
         websocket.send_msg(
           event: "subscribe",
