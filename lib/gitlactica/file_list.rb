@@ -1,11 +1,5 @@
 module Gitlactica
-  class FileList
-    attr_reader :files
-
-    def initialize(files)
-      @files = files
-    end
-
+  FileList = Struct.new(:files) do
     # Public: Group the Array of file paths by their detected language.
     #
     # Examples
@@ -17,18 +11,6 @@ module Gitlactica
     # Returns the Hash mapping languages to Arrays of files.
     def group_by_language
       files.group_by { |file| language_for(file).name }
-    end
-
-    # Equality
-
-    def ==(obj)
-      obj.is_a?(self.class) && obj.files == files
-    end
-
-    alias :eql? :==
-
-    def hash
-      files.hash
     end
 
     private
