@@ -2,22 +2,10 @@ module Gitlactica
   class WebSocketClient
     class InvalidMessageError < StandardError ; end
 
-    def initialize(socket, subscriptions)
-      @socket        = socket
-      @subscriptions = subscriptions
-    end
-
-    # Processes an incoming message from the WebSocket
-    # msg - The Gitlactica::Message to be processed
-    def process(msg)
-      case msg.type
-      when 'login'
-        Responders::Login.respond(msg.data, self)
-      when 'subscribe'
-        Responders::Subscription.respond(msg.data, self, @subscriptions)
-      else
-        raise InvalidMessageError
-      end
+    def initialize(socket, router)
+      @socket = socket
+      @router = router
+      register_message_handler
     end
 
     def send_msg(event, data)
@@ -27,6 +15,17 @@ module Gitlactica
     end
 
     private
+
+    def register_message_handler
+      @socket.onmessage(&method(:message_handler))
+    end
+
+    def message_handler(json)
+      msg = Message.from_json(json)
+      @router.route(msg, self)
+    rescue Message::InvalidJSONError, MessageRouter::UnroutableMessageError
+      puts "Invalid message received: #{json}"
+    end
 
     def make_msg(event, data)
       { event: event, data: data }
