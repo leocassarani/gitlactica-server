@@ -22,10 +22,7 @@ module Gitlactica::GitHub
 
     describe "extension" do
       def blob(path)
-        Blob.new(
-          sha: "f919c19b635f229dd09b37430d2bdba04d9de0fd",
-          path: path
-        )
+        Blob.new("f919c19b635f229dd09b37430d2bdba04d9de0fd", path)
       end
 
       it "returns the file extension when there is one" do
@@ -47,11 +44,11 @@ module Gitlactica::GitHub
 
     describe "equality" do
       it "is equal to another blob with the same SHA" do
-        Blob.new(sha: "123abc").should == Blob.new(sha: "123abc")
+        Blob.new("123abc", 21).should == Blob.new("123abc", 42)
       end
 
-      it "is different from blobs with different SHA" do
-        Blob.new(sha: "123abc", path: "Gemfile").should_not == Blob.new(sha: "cba321", path: "Gemfile")
+      it "is not equal to blobs with a different SHA" do
+        Blob.new("123abc", "Gemfile").should_not == Blob.new("cba321", "Gemfile")
       end
     end
   end

@@ -2,9 +2,10 @@ require 'gitlactica/github/push_event'
 
 module Gitlactica::GitHub
   class Commit; end
-  class Repo; end
 
   describe Gitlactica::GitHub::PushEvent do
+    before { stub_const("Gitlactica::GitHub::Repo", Class.new) }
+
     describe "creating an instance from a webhook payload" do
       let(:json_commit) { {
         'added' => [

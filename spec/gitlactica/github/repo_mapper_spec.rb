@@ -1,4 +1,3 @@
-require 'ostruct'
 require 'gitlactica/github/repo_mapper'
 
 module Gitlactica
@@ -6,7 +5,6 @@ module Gitlactica
 
   describe Gitlactica::GitHub::RepoMapper do
     let(:json) { {
-      'name' => "em-websocket",
       'full_name' => "igrigorik/em-websocket",
       'language' => "Ruby",
       'description' => "EventMachine based WebSocket server"
@@ -15,11 +13,11 @@ module Gitlactica
     let(:ruby) { mock(:ruby) }
     before { Language.stub(:with_name).with("Ruby") { ruby } }
 
-    let(:repo) { GitHub::RepoMapper.from_api(json, OpenStruct) }
+    let(:klass) { Struct.new(:full_name, :language, :description) }
+    let(:repo) { GitHub::RepoMapper.from_api(json, klass) }
     subject { repo }
 
     describe "attributes" do
-      its(:name)  { should == "em-websocket" }
       its(:language) { should == ruby }
       its(:description) { should == "EventMachine based WebSocket server" }
     end
@@ -30,14 +28,15 @@ module Gitlactica
       end
 
       context "when the payload has no full name, but has an owner" do
-        let(:owner) { {
-          'email' => "ilya@igvita.com",
-          'name' => "igrigorik"
-        } }
-
         before do
           json.delete('full_name')
-          json.merge!('owner' => owner)
+          json.merge!(
+            'name' => "em-websocket",
+            'owner' => {
+              'email' => "ilya@igvita.com",
+              'name' => "igrigorik"
+            }
+          )
         end
 
         its(:full_name) { should == "igrigorik/em-websocket" }

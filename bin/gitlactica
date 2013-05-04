@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-
-require File.expand_path('../../lib/gitlactica', __FILE__)
-
-EM.run {
-  Gitlactica::Application.run
-}

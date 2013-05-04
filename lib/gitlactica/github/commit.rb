@@ -1,11 +1,9 @@
 module Gitlactica
   module GitHub
     class Commit
-      def self.recent_commits(repo, &block)
-        GitHub::Client.get_json("repos/#{repo.full_name}/commits") do |json|
-          commits = json.map { |commit| from_repo(commit) }
-          block.call(commits)
-        end
+      def self.recent_commits(repo)
+        json = GitHub::Client.get_json("repos/#{repo.full_name}/commits")
+        json.map { |commit| from_repo(commit) }
       end
 
       def self.from_repo(json)

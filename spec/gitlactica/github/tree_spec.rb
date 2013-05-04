@@ -26,11 +26,7 @@ module Gitlactica::GitHub
     } }
 
     it "maps child blobs" do
-      blob = Blob.new(
-        path: "Gemfile",
-        sha: "1878536c4d19fa1f009922ff8f5b423c397775a4",
-        size: 67
-      )
+      blob = Blob.new("1878536c4d19fa1f009922ff8f5b423c397775a4", "Gemfile", 67)
       tree = Tree.from_api(json)
       tree.blobs.should == [blob]
     end

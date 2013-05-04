@@ -1,48 +1,78 @@
-require_relative 'integration_helper'
+require './spec/support/integration_helper'
 
-describe "Gitlactica" do
+describe "GET /repos" do
+  include AuthenticationHelper
+  include JSONHelper
   include GitHubApiHelper
-  include WebSocketHelper
+  include RackIntegrationHelper
 
-  it "given a GitHub login over WebSocket, fetches the user's repos and sends them back" do
-    EM.run {
-      mock_github_api('localhost', 3333)
+  it { requires_authentication }
 
-      Gitlactica::Application.run
-
-      mock_websocket('localhost', 8080) do |websocket|
-        websocket.should_receive_msg(
-          event: "repos",
-          data: {
-            login: "defunkt",
-            repos: [
-              {
-                name: "ace",
-                full_name: "defunkt/ace",
-                language: "JavaScript",
-                color: "#f15501",
-                description: "Ajax.org Cloud9 Editor"
-              },
-              {
-                name: "defunkt.github.com",
-                full_name: "defunkt/defunkt.github.com",
-                language: "Unknown",
-                color: nil,
-                description: "My GitHub Page"
-              }
-            ]
-          }
-        )
-
-        websocket.send_msg(
-          event: "login",
-          data: {
-            login: "defunkt"
-          }
-        )
-
-        websocket.timeout_after(0.3)
-      end
-    }
+  it "returns the user's repos" do
+    mock_github_api do
+      get '/repos', access_token: 'some-token'
+      json_response.should == [
+        {
+          full_name: "celluloid/celluloid",
+          language: "Ruby",
+          color: "#701516",
+          description: "Actor-based concurrent object framework for Ruby"
+        },
+        {
+          full_name: "celluloid/celluloid-dns",
+          language: "Ruby",
+          color: "#701516",
+          description: "Celluloid::IO-powered DNS server"
+        },
+        {
+          full_name: "celluloid/celluloid-io",
+          language: "Ruby",
+          color: "#701516",
+          description: "Evented sockets for Celluloid actors"
+        },
+        {
+          full_name: "celluloid/celluloid-logos",
+          language: "Unknown",
+          color: nil,
+          description: "Celluloid project logos in vector and raster format"
+        },
+        {
+          full_name: "celluloid/celluloid-redis",
+          language: "Ruby",
+          color: "#701516",
+          description: "Celluloid::IO support for the redis-rb gem"
+        },
+        {
+          full_name: "celluloid/celluloid-zmq",
+          language: "Ruby",
+          color: "#701516",
+          description: "Celluloid actors that talk over the 0MQ protocol"
+        },
+        {
+          full_name: "celluloid/celluloid.github.com",
+          language: "JavaScript",
+          color: "#f15501",
+          description: "Celluloid web site"
+        },
+        {
+          full_name: "celluloid/dcell",
+          language: "JavaScript",
+          color: "#f15501",
+          description: "Actor-based distributed objects in Ruby based on Celluloid and 0MQ"
+        },
+        {
+          full_name: "celluloid/lattice",
+          language: "Ruby",
+          color: "#701516",
+          description: "A concurrent realtime web framework for Ruby"
+        },
+        {
+          full_name: "celluloid/reel",
+          language: "Ruby",
+          color: "#701516",
+          description: "Celluloid::IO-powered web server"
+        }
+      ]
+    end
   end
 end

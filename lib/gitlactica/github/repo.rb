@@ -1,36 +1,32 @@
 module Gitlactica
   module GitHub
-    class Repo
-      def self.all_by_user(user, &block)
-        GitHub::Client.get_json("users/#{user.login}/repos") do |json|
-          repos = json.map { |hash| from_api(hash) }
-          block.call(repos)
-        end
+    Repo = Struct.new(:full_name, :language, :description) do
+      def self.all_by_user(user)
+        json = GitHub::Client.get_json("users/#{user.login}/repos")
+        json.map { |hash| from_api(hash) }
       end
 
       def self.from_api(json)
         GitHub::RepoMapper.from_api(json, self)
       end
 
-      attr_reader :full_name, :name, :language, :description
-
-      def initialize(params)
-        @full_name   = params.fetch(:full_name)
-        @name        = params.fetch(:name, '')
-        @language    = params.fetch(:language, nil)
-        @description = params.fetch(:description, '')
+      def recent_commits
+        GitHub::Commit.recent_commits(self)
       end
 
-      def recent_commits(&block)
-        GitHub::Commit.recent_commits(self, &block)
-      end
-
-      def tree(&block)
+      def tree
         # TODO: use a repo's default branch, which may not be "master"
-        GitHub::Tree.for_repo(self, 'master', &block)
+        GitHub::Tree.for_repo(self, 'master')
       end
 
-      # Equality
+      def to_h
+        {
+          full_name: full_name,
+          language: language.name,
+          color: language.color,
+          description: description
+        }
+      end
 
       def ==(obj)
         obj.is_a?(self.class) && obj.full_name == full_name

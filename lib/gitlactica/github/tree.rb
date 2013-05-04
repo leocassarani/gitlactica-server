@@ -1,13 +1,10 @@
 module Gitlactica
   module GitHub
     class Tree
-      def self.for_repo(repo, branch, &block)
+      def self.for_repo(repo, branch)
         url = "repos/#{repo.full_name}/git/trees/#{branch}"
-
-        GitHub::Client.get_json(url, recursive: 1) do |json|
-          tree = from_api(json)
-          block.call(tree)
-        end
+        json = GitHub::Client.get_json(url, recursive: 1)
+        from_api(json)
       end
 
       def self.from_api(json)

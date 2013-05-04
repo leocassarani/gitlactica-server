@@ -5,10 +5,9 @@ module Gitlactica
 
       def from_api(json, klass)
         klass.new(
-          name: json.fetch('name'),
-          description: json.fetch('description'),
-          full_name: map_full_name(json),
-          language: map_language(json)
+          map_full_name(json),
+          map_language(json),
+          json.fetch('description')
         )
       end
 
@@ -26,8 +25,8 @@ module Gitlactica
       end
 
       def map_language(json)
-        name = json.fetch('language', nil)
-        Gitlactica::Language.with_name(name)
+        language = json.fetch('language', nil)
+        Gitlactica::Language.with_name(language)
       end
     end
   end

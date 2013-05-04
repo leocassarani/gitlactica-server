@@ -1,13 +1,19 @@
 source 'https://rubygems.org'
 
-gem 'eventmachine'
-gem 'em-http-request'
-gem 'em-websocket'
+gem 'sinatra'
 gem 'thin'
+gem 'faraday'
+
+group :development do
+  gem 'foreman'
+  gem 'rerun'
+end
+
+group :development, :test do
+  gem 'rspec'
+end
 
 group :test do
-  gem 'em-websocket-client'
-  gem 'rspec'
-  gem 'sinatra'
+  gem 'rack-test'
   gem 'yajl-ruby'
 end
