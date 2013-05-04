@@ -1,7 +1,7 @@
-require 'gitlactica/language_library'
+require 'gitlactica/language/library'
 
 module Gitlactica
-  describe Gitlactica::LanguageLibrary do
+  describe Gitlactica::Language::Library do
     let(:klass) { mock(:klass) }
 
     context "when the given language name is known" do
@@ -17,7 +17,7 @@ module Gitlactica
       before { klass.stub(:from_hash).with("Ruby", attr) { ruby } }
 
       it "instantiates a language with the right attributes" do
-        library = LanguageLibrary.new(languages, klass)
+        library = Language::Library.new(languages, klass)
         library.with_name("Ruby").should == ruby
       end
     end
@@ -29,7 +29,7 @@ module Gitlactica
       before { klass.stub(:unknown) { unknown } }
 
       it "returns the unknown language instance" do
-        library = LanguageLibrary.new(languages, klass)
+        library = Language::Library.new(languages, klass)
         library.with_name("C++").should == unknown
       end
     end

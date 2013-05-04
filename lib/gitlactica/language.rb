@@ -1,3 +1,6 @@
+require_relative 'language/detector'
+require_relative 'language/library'
+
 module Gitlactica
   class Language
     class UnknownLanguage
@@ -32,11 +35,11 @@ module Gitlactica
       private
 
       def detector
-        @detector ||= LanguageDetector.new(languages, library)
+        @detector ||= Language::Detector.new(languages, library)
       end
 
       def library
-        @library ||= LanguageLibrary.new(languages, self)
+        @library ||= Language::Library.new(languages, self)
       end
 
       def languages

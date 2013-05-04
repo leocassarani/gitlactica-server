@@ -1,7 +1,7 @@
-require 'gitlactica/language_detector'
+require 'gitlactica/language/detector'
 
 module Gitlactica
-  describe Gitlactica::LanguageDetector do
+  describe Gitlactica::Language::Detector do
     let(:library) { mock(:library) }
 
     context "when a language exists for the given extension" do
@@ -16,12 +16,12 @@ module Gitlactica
       before { library.stub(:with_name).with("C++") { cpp } }
 
       it "finds a language based on its primary extension" do
-        detector = LanguageDetector.new(languages, library)
+        detector = Language::Detector.new(languages, library)
         detector.detect('.cpp').should == cpp
       end
 
       it "finds a language based on one of its secondary extensions" do
-        detector = LanguageDetector.new(languages, library)
+        detector = Language::Detector.new(languages, library)
         detector.detect('.hh').should == cpp
       end
     end
@@ -31,7 +31,7 @@ module Gitlactica
       before { library.stub(:unknown_language) { unknown } }
 
       it "returns a null language object" do
-        detector = LanguageDetector.new({}, library)
+        detector = Language::Detector.new({}, library)
         detector.detect('.txt').should == unknown
       end
     end
