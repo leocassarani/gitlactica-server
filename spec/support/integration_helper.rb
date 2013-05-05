@@ -10,3 +10,10 @@ require './spec/support/authentication_helper'
 require './spec/support/json_helper'
 require './spec/support/github_api_helper'
 require './spec/support/rack_integration_helper'
+
+RSpec.configure do |config|
+  config.after(:each) do
+    Gitlactica::Database.redis.flushdb
+    Gitlactica::Database.clear_connection!
+  end
+end
