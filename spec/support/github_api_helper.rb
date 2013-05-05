@@ -6,9 +6,8 @@ module GitHubApiHelper
     mutex = Mutex.new
     ready = ConditionVariable.new
 
-    Thread.new {
-      # Run Thin inside an EventMachine loop so calling .start
-      # is non-blocking
+    t = Thread.new {
+      # Run Thin inside an EventMachine loop so calling start is non-blocking
       EM.run {
         mutex.synchronize {
           Thin::Logging.silent = true
@@ -21,6 +20,7 @@ module GitHubApiHelper
     mutex.synchronize {
       ready.wait(mutex)
       block.call
+      t.terminate
     }
   end
 
@@ -37,8 +37,17 @@ module GitHubApiHelper
       respond_with_fixture("#{user}_repos.json") or pass
     end
 
+    post '/login/oauth/access_token' do
+      pass unless code
+      pass unless request.accept?('application/json')
+      to_json(
+        access_token: "e72e16c7e42f292c6912e7710c838347ae178b4a",
+        token_type: "bearer"
+      )
+    end
+
     not_found do
-      to_json(message: "Not Found")
+      to_json(error: "Not Found")
     end
 
     private
@@ -51,6 +60,10 @@ module GitHubApiHelper
 
     def user
       params[:user]
+    end
+
+    def code
+      params['code'] unless params.fetch('code', '').empty?
     end
   end
 end

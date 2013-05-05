@@ -1,12 +1,9 @@
 require './spec/support/integration_helper'
 
 describe "GET /repos" do
-  include AuthenticationHelper
   include JSONHelper
   include GitHubApiHelper
   include RackIntegrationHelper
-
-  it { requires_authentication }
 
   it "returns the user's repos" do
     mock_github_api do

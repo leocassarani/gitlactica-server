@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'thin'
 gem 'faraday'
+gem 'redis'
 
 group :development do
   gem 'foreman'

@@ -1,4 +1,5 @@
 ENV['GITHUB_API_URL'] = 'http://localhost:3333'
+ENV['GITHUB_WEB_URL'] = 'http://localhost:3333'
 
 require 'gitlactica/api/app'
 require 'rack/test'

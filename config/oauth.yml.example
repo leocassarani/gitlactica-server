@@ -1,0 +1,3 @@
+client:
+  id: # Your GitHub client ID here
+  secret: # Your GitHub client secret here

@@ -6,20 +6,32 @@ module Gitlactica
         Yajl::Parser.parse(response.body)
       end
 
+      def self.post_url(url, query = {})
+        response = url_request(url).post do |req|
+          req.body = query
+          req.headers['Accept'] = 'application/json'
+        end
+        Yajl::Parser.parse(response.body)
+      end
+
       private
 
       def self.headers
         headers = { 'User-Agent' => Config::USER_AGENT }
 
-        if GitHub::Auth.authenticatable?
-          headers['Authorization'] = [GitHub::Auth.username, GitHub::Auth.password]
-        end
+        #if GitHub::Auth.authenticatable?
+          #headers['Authorization'] = [GitHub::Auth.username, GitHub::Auth.password]
+        #end
 
         headers
       end
 
       def self.api_request
-        Faraday.new(url: Config::GITHUB_API_URL)
+        url_request(Config::GITHUB_API_URL)
+      end
+
+      def self.url_request(url)
+        Faraday.new(url: url)
       end
     end
   end
