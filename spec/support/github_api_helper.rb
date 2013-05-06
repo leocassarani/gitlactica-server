@@ -34,11 +34,13 @@ module GitHubApiHelper
     end
 
     get '/users/:user/repos' do
-      respond_with_fixture("#{user}_repos.json") or pass
+      respond_with_fixture("#{param :user}_repos.json") or pass
     end
 
     post '/login/oauth/access_token' do
-      pass unless code
+      pass unless param(:code)
+      pass unless param(:client_id) == ENV['GITHUB_CLIENT_ID']
+      pass unless param(:client_secret) == ENV['GITHUB_CLIENT_SECRET']
       pass unless request.accept?('application/json')
       to_json(
         access_token: "e72e16c7e42f292c6912e7710c838347ae178b4a",
@@ -58,12 +60,9 @@ module GitHubApiHelper
       File.read(path) if File.exists?(path)
     end
 
-    def user
-      params[:user]
-    end
-
-    def code
-      params['code'] unless params.fetch('code', '').empty?
+    def param(key)
+      key = String(key)
+      params[key] unless params.fetch(key, '').empty?
     end
   end
 end

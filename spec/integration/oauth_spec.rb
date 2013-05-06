@@ -10,7 +10,7 @@ describe "GET /auth/token" do
 
   it "returns an API access token if the user has the right nonce" do
     mock_github_api do
-      get '/auth/github/callback', code: "github-oauth-code", state: 'somestate'
+      get '/auth/github/callback', code: "github-oauth-code", state: "somestate"
       follow_redirect!
       get '/auth/token'
       json_response.should == { access_token: "access-token" }
