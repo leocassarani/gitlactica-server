@@ -2,7 +2,7 @@ module Gitlactica
   module GitHub
     Repo = Struct.new(:full_name, :language, :description) do
       def self.all_by_user(user)
-        json = GitHub::Client.get_json("users/#{user.login}/repos")
+        json = GitHub::APIClient.get_json("users/#{user.login}/repos")
         json.map { |hash| from_api(hash) }
       end
 

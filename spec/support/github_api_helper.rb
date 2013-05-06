@@ -47,7 +47,8 @@ module GitHubApiHelper
       pass unless param(:code) == "github-oauth-code"
       pass unless param(:client_id) == ENV['GITHUB_CLIENT_ID']
       pass unless param(:client_secret) == ENV['GITHUB_CLIENT_SECRET']
-      pass unless request.accept?('application/json')
+      pass unless request.accept.any? { |t| File.fnmatch('application/json', t) } # this is nuts
+
       to_json(
         access_token: "e72e16c7e42f292c6912e7710c838347ae178b4a",
         token_type: "bearer"

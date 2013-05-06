@@ -2,7 +2,7 @@ module Gitlactica
   module Api
     class Base < Sinatra::Base
       enable  :sessions
-      disable :show_exceptions
+      enable  :raise_errors if test?
 
       before do
         content_type :json

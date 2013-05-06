@@ -2,7 +2,7 @@ module Gitlactica
   module GitHub
     class Commit
       def self.recent_commits(repo)
-        json = GitHub::Client.get_json("repos/#{repo.full_name}/commits")
+        json = GitHub::APIClient.get_json("repos/#{repo.full_name}/commits")
         json.map { |commit| from_repo(commit) }
       end
 
