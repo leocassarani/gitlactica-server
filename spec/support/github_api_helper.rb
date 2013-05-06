@@ -19,8 +19,12 @@ module GitHubApiHelper
 
     mutex.synchronize {
       ready.wait(mutex)
-      block.call
-      t.terminate
+      begin
+        block.call
+      rescue Exception => e
+        t.terminate
+        raise e
+      end
     }
   end
 
@@ -38,7 +42,7 @@ module GitHubApiHelper
     end
 
     post '/login/oauth/access_token' do
-      pass unless param(:code)
+      pass unless param(:code) == "github-oauth-code"
       pass unless param(:client_id) == ENV['GITHUB_CLIENT_ID']
       pass unless param(:client_secret) == ENV['GITHUB_CLIENT_SECRET']
       pass unless request.accept?('application/json')
