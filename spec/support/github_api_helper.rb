@@ -7,7 +7,7 @@ module GitHubApiHelper
     ready = ConditionVariable.new
 
     t = Thread.new {
-      # Run Thin inside an EventMachine loop so calling start is non-blocking
+      # Run Thin inside an EventMachine loop so starting it is non-blocking
       EM.run {
         mutex.synchronize {
           Thin::Logging.silent = true
@@ -17,13 +17,15 @@ module GitHubApiHelper
       }
     }
 
+    # Wait until the server is up and running, then execute the block
     mutex.synchronize {
       ready.wait(mutex)
       begin
         block.call
       rescue Exception => e
-        t.terminate
         raise e
+      ensure
+        t.terminate
       end
     }
   end
