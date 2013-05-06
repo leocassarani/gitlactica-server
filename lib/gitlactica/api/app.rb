@@ -5,6 +5,7 @@ require 'gitlactica'
 require_relative 'base'
 require_relative 'access_token'
 require_relative 'auth'
+require_relative 'frontend'
 require_relative 'repos'
 
 module Gitlactica
@@ -14,6 +15,7 @@ module Gitlactica
         @app = Rack::Builder.app do
           map('/auth')  { run Auth.new }
           map('/repos') { run Repos.new }
+          run Frontend.new unless production?
         end
       end
 
