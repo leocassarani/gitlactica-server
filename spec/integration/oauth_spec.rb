@@ -13,7 +13,9 @@ describe "GET /auth/token" do
       get '/auth/github/callback', code: "github-oauth-code", state: "somestate"
       follow_redirect!
       get '/auth/token'
-      json_response.should == { access_token: "access-token" }
+
+      access_token = json_response.fetch(:access_token)
+      access_token.should have(40).characters
     end
   end
 end
