@@ -1,6 +1,6 @@
 module Gitlactica
   module Api
-    class Frontend < Sinatra::Base
+    class Static < Sinatra::Base
       set :public_folder, File.expand_path('../../../../public', __FILE__)
 
       get '/' do
