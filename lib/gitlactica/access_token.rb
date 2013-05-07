@@ -1,31 +1,27 @@
 module Gitlactica
   class AccessToken
-    NONCE_EXPIRES_IN = 5 * 60
-
-    def self.make_nonce!(github_token)
-      nonce = SecureRandom.hex(20)
-      Gitlactica::Database.set_nonce(nonce, github_token, NONCE_EXPIRES_IN)
-      nonce
-    end
-
-    def self.with_nonce(nonce)
-      if github_token = Gitlactica::Database.get_nonce(nonce)
-        Gitlactica::Database.clear_nonce!(nonce)
-        new(nil, github_token)
+    class << self
+      def make_nonce(github_token)
+        new_token.tap do |nonce|
+          DB::Nonce.new(nonce, github_token).save
+        end
       end
-    end
 
-    attr_reader :user_token, :github_token
+      def make_user_token(nonce_str)
+        nonce = DB::Nonce.find(nonce_str)
+        return unless nonce
 
-    def initialize(user_token, github_token)
-      @user_token   = user_token
-      @github_token = github_token
-    end
+        new_token.tap do |user_token|
+          DB::UserToken.new(user_token, nonce.token).save
+          nonce.destroy!
+        end
+      end
 
-    def make_user_token!
-      return if user_token
-      @user_token = SecureRandom.hex(20)
-      Gitlactica::Database.set_user_token(user_token, github_token)
+      private
+
+      def new_token
+        SecureRandom.hex(20)
+      end
     end
   end
 end

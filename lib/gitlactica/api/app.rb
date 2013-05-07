@@ -3,7 +3,6 @@ require 'sinatra'
 require 'gitlactica'
 
 require_relative 'base'
-require_relative 'access_token'
 require_relative 'auth'
 require_relative 'repos'
 require_relative 'static'

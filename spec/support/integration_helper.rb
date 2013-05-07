@@ -14,7 +14,7 @@ require './spec/support/rack_integration_helper'
 
 RSpec.configure do |config|
   config.after(:each) do
-    Gitlactica::Database.redis.flushdb
-    Gitlactica::Database.clear_connection!
+    Gitlactica::DB.redis.flushdb
+    Gitlactica::DB.clear_connection!
   end
 end

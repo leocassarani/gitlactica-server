@@ -10,18 +10,17 @@ module Gitlactica
         halt 401 unless code && state && GitHub::OAuth.valid_state?(state)
 
         github_token = GitHub::OAuth.request_access_token(code)
-        session[:nonce] = Gitlactica::AccessToken.make_nonce!(github_token)
+        session[:nonce] = AccessToken.make_nonce(github_token)
         redirect '/'
       end
 
       get '/token' do
         halt 403 unless nonce
 
-        token = Gitlactica::AccessToken.with_nonce(nonce)
-        token.make_user_token!
-
+        user_token = AccessToken.make_user_token(nonce)
         session.delete(:nonce)
-        to_json(access_token: token.user_token)
+
+        to_json(access_token: user_token)
       end
 
       private

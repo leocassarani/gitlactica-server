@@ -36,7 +36,7 @@ module Gitlactica
     describe "GET /auth/github/callback" do
       before do
         GitHub::OAuth.stub(:request_access_token) { 'accesstoken' }
-        AccessToken.stub(:make_nonce!).with('accesstoken') { 'nonce' }
+        AccessToken.stub(:make_nonce).with('accesstoken') { 'nonce' }
       end
 
       it "returns a 401 with no code" do
