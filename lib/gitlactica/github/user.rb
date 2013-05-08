@@ -1,6 +1,12 @@
 module Gitlactica
   module GitHub
     User = Struct.new(:login) do
+      def self.current_user(access_token)
+        APIClient.with_access_token(access_token) do |api|
+          api.get_json("/user")
+        end
+      end
+
       def self.from_commit(json)
         return if json.nil?
         new(json.fetch('login'))

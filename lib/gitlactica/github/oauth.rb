@@ -20,7 +20,7 @@ module Gitlactica
         state == STATE
       end
 
-      def request_access_token(code)
+      def request_token(code)
         hash = OAuthClient.post(token_request_path, token_request_params(code))
         hash.fetch('access_token')
       end

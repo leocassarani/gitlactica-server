@@ -4,7 +4,9 @@ require 'gitlactica/api/auth'
 require 'rack/test'
 
 module Gitlactica
-  class AccessToken; end
+  module DB
+    class Nonce; end
+  end
 
   module GitHub
     module OAuth; end
@@ -34,9 +36,12 @@ module Gitlactica
     end
 
     describe "GET /auth/github/callback" do
+      let(:token) { 'token' }
+      let(:nonce) { mock(:nonce, to_s: 'nonce') }
+
       before do
-        GitHub::OAuth.stub(:request_access_token) { 'accesstoken' }
-        AccessToken.stub(:make_nonce).with('accesstoken') { 'nonce' }
+        GitHub::OAuth.stub(:request_token) { token }
+        DB::Nonce.stub(:create).with(token) { nonce }
       end
 
       it "returns a 401 with no code" do

@@ -1,8 +1,8 @@
 module Gitlactica
   module Api
     class Base < Sinatra::Base
-      enable  :sessions
-      enable  :raise_errors if test?
+      enable :sessions
+      enable :raise_errors if test?
 
       before do
         content_type :json
@@ -10,8 +10,9 @@ module Gitlactica
 
       private
 
-      def current_user
-        GitHub::User.new('celluloid')
+      def github_token
+        user_token = DB::UserToken.find(params[:access_token])
+        user_token.github_token
       end
 
       def to_json(obj)

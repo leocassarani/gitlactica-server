@@ -5,9 +5,13 @@ describe "GET /repos" do
   include GitHubApiHelper
   include RackIntegrationHelper
 
+  before do
+    Gitlactica::DB::UserToken.new('celluloid-token', 'github-access-token').save
+  end
+
   it "returns the user's repos" do
     mock_github_api do
-      get '/repos', access_token: 'some-token'
+      get '/repos', access_token: 'celluloid-token'
       json_response.should == [
         {
           full_name: "celluloid/celluloid",

@@ -4,7 +4,6 @@ require 'redis'
 require 'yaml'
 require 'yajl'
 
-require_relative 'gitlactica/access_token'
 require_relative 'gitlactica/config'
 require_relative 'gitlactica/db'
 require_relative 'gitlactica/faraday_middleware'

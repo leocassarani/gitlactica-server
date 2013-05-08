@@ -31,6 +31,7 @@ module GitHubApiHelper
   end
 
   class FakeGitHubApi < Sinatra::Base
+    ACCESS_TOKEN   = 'github-access-token'
     GITHUB_API_DIR = File.expand_path('../../fixtures/github_api', __FILE__)
 
     include JSONHelper
@@ -39,8 +40,9 @@ module GitHubApiHelper
       content_type :json
     end
 
-    get '/users/:user/repos' do
-      respond_with_fixture("#{param :user}_repos.json") or pass
+    get '/user/repos' do
+      require_access_token
+      respond_with_fixture("#{current_user}_repos.json") or pass
     end
 
     post '/login/oauth/access_token' do
@@ -61,6 +63,10 @@ module GitHubApiHelper
 
     private
 
+    def require_access_token
+      pass unless env['HTTP_AUTHORIZATION'] == "token #{ACCESS_TOKEN}"
+    end
+
     # Returns nil when the given fixture isn't found.
     def respond_with_fixture(filename)
       path = File.join(GITHUB_API_DIR, filename)
@@ -70,6 +76,10 @@ module GitHubApiHelper
     def param(key)
       key = String(key)
       params[key] unless params.fetch(key, '').empty?
+    end
+
+    def current_user
+      'celluloid' # Why not
     end
   end
 end

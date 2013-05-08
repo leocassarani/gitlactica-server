@@ -9,33 +9,35 @@ module Gitlactica
         code, state = param(:code), param(:state)
         halt 401 unless code && state && GitHub::OAuth.valid_state?(state)
 
-        github_token = GitHub::OAuth.request_access_token(code)
-        session[:nonce] = AccessToken.make_nonce(github_token)
+        token = GitHub::OAuth.request_token(code)
+        nonce = DB::Nonce.create(token)
+
+        session[:nonce] = nonce.to_s
         redirect '/'
       end
 
       get '/token' do
-        halt 403 unless nonce
+        halt 403 unless has_nonce?
 
-        user_token = AccessToken.make_user_token(nonce)
-        session.delete(:nonce)
+        nonce = DB::Nonce.find(session[:nonce]) or halt 403
+        user_token = DB::UserToken.create(nonce.token)
 
-        to_json(access_token: user_token)
+        to_json(access_token: user_token.to_s)
       end
 
       private
-
-      def build_url(base, query)
-        [base, Rack::Utils.build_query(query)].join('?')
-      end
 
       def param(key)
         key = String(key)
         params[key] unless params.fetch(key, '').empty?
       end
 
-      def nonce
-        session[:nonce] unless !session[:nonce] || session[:nonce].empty?
+      def has_nonce?
+        session[:nonce] && !session[:nonce].empty?
+      end
+
+      def build_url(base, query)
+        [base, Rack::Utils.build_query(query)].join('?')
       end
     end
   end
