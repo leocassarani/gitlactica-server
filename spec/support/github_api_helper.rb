@@ -40,6 +40,11 @@ module GitHubApiHelper
       content_type :json
     end
 
+    get '/user' do
+      require_access_token
+      respond_with_fixture("#{current_user}_user.json") or pass
+    end
+
     get '/user/repos' do
       require_access_token
       respond_with_fixture("#{current_user}_repos.json") or pass

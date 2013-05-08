@@ -10,9 +10,13 @@ module Gitlactica
 
       private
 
+      def authenticated?
+        params[:access_token] && !params[:access_token].empty?
+      end
+
       def github_token
         user_token = DB::UserToken.find(params[:access_token])
-        user_token.github_token
+        user_token.github_token if user_token
       end
 
       def to_json(obj)
