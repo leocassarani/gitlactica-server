@@ -22,6 +22,9 @@ module Gitlactica
         nonce = DB::Nonce.find(session[:nonce]) or halt 403
         user_token = DB::UserToken.create(nonce.token)
 
+        nonce.destroy!
+        session.delete(:nonce)
+
         to_json(access_token: user_token.to_s)
       end
 
