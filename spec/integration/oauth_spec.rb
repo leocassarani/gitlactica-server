@@ -1,5 +1,5 @@
-ENV['GITHUB_CLIENT_ID']     = "410f3690eb6a41549c4a"
-ENV['GITHUB_CLIENT_SECRET'] = "85070333ddb1083f59de1749392cca1cb068e851"
+ENV['GITHUB_CLIENT_ID']     = "github-client-id"
+ENV['GITHUB_CLIENT_SECRET'] = "github-client-secret"
 
 require './spec/support/integration_helper'
 
