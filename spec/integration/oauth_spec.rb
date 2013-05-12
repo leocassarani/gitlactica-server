@@ -1,6 +1,3 @@
-ENV['GITHUB_CLIENT_ID']     = "github-client-id"
-ENV['GITHUB_CLIENT_SECRET'] = "github-client-secret"
-
 require './spec/support/integration_helper'
 
 describe "GET /auth/token" do
